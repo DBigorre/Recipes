@@ -5,5 +5,16 @@ async function init() {
   const recipes = await datas.recipes
 
   displayListRecipes(recipes);
-  ingredientsListByRecipe(recipes);
+};
+
+async function catchIngredients(recette){
+  const model = new Model();
+  const datas = await  model.getDatas();
+  //let array = [];
+  let listOfIngredients = recette.ingredients;
+
+  /*for( let ingredient of listOfIngredients){
+    array.push(ingredient)
+  }*/
+  ingredientsListByRecipe(listOfIngredients, recette);
 };

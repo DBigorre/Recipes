@@ -1,7 +1,9 @@
 function displayListRecipes(recipes){
   let html= "";
-  for (let recipe of recipes) {
+  let recette ="";
 
+  for (let recipe of recipes) {
+    recette = recipe
     html += `
       <div>
         <article>
@@ -10,18 +12,27 @@ function displayListRecipes(recipes){
           <h3> Recettes </h3>
           <p> ${recipe.description} </p>
           <h3> Ingredients </h3>
-
+          <div class="recipesCardsIngredient" id="${recipe.name}">
+          </div>
         </article>
       </div>
     `
+    catchIngredients(recette);
   }
-
-  let htmlSection = document.querySelector(".recipesCards")
+  let htmlSection = document.querySelector(".recipesCardsHeader")
   htmlSection.innerHTML = html
 }
 
-function ingredientsListByRecipe(recipes){
-  for (let recipe of recipes){
-    console.log(recipe.ingredients)
-  }
+function ingredientsListByRecipe(listOfIngredients, recette){
+  let ingredientsHtml = "";
+
+  for (let components of listOfIngredients){
+      ingredientsHtml += `
+        <ul>
+          <li> ${components.ingredient} </li>
+        </ul>
+      `
+    }
+  let htmlIngredients = document.getElementById(recette.name)
+  htmlIngredients.innerHTML = ingredientsHtml
 }
