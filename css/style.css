@@ -2,29 +2,170 @@ main{
   width: 100%;
 }
 
+header{
+  background-color: #1f1f1f;
+  height: 667px;
+  width: 100%;
+}
+
+section{
+  background-color:#e8e8e8;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 2%;
+}
+
+.centerHeader{
+  margin: 13%;
+}
+
+header h1{
+  color: #FFD15B;
+  font-size: 44px;
+  font-weight: bolder;
+}
+
+#searchBar{
+  display: flex;
+}
+
+#searchInput{
+  height: 48px;
+  width: 100%;
+  border-radius: 11px 0 0 11px;
+}
+
+.fa-magnifying-glass{
+  background-color: white;
+  height: 53px;
+  width: 53px;
+  border-radius: 0 11px 11px 0;
+  font-size: x-large;
+}
+
+section{
+  display: flex;
+  justify-content: space-between;
+}
+
+button{
+  width: 179px;
+  height: 56px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 500;
+  font-size: 16px;
+  background-color: white;
+  border: none;
+}
+
+.filters{
+  display: flex;
+  gap: 63px;
+}
+
+#searchIngredients{
+  display: none;
+  height: 36px;
+  border-radius: 2px;
+}
+
+#searchDevices{
+  display: none;
+}
+
+#searchTools{
+  display: none;
+}
+
+.inpuOfSearchInFilters{
+  height: 36px;
+  border: solid 1px;
+  width: 163px;
+  border-radius: 2px;
+}
+
+#ingredientsList{
+  display: none;
+  background-color: white;
+  width: 179px;
+}
+
+#deviceList{
+  display:none;
+  background-color: white;
+  width: 179px;
+}
+
+#toolsList{
+  display:none;
+  background-color: white;
+  width: 179px;
+}
+
 .recipeCards{
   width: 90%;
   background-color: aqua;
 }
 
+.recipesCardsHeader h3{
+  margin-bottom: 2px;
+  color: grey;
+}
+
+.recipesCardsHeader h2{
+  font-weight: bolder;
+  font-size: 22px;
+}
+
 .recipesCardsHeader{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 100px;
+  grid-gap: 1%;
   background-color: #e8e8e8;
-  width: 100%;
+  width: 98%;
+  padding-left: 1%;
+  padding-right: 1%;
+  padding-top: 2%;
 }
 
 article{
   background-color: white;
-  height: 800px;
+  height: 731px;
   display: flex;
   flex-direction: column;
   margin: auto;
   align-items: center;
+  width: 78%;
+  border-radius: 21px;
 }
 
 .recipePhoto{
-  width: 300px;
-  height: 300px;
+  width: 100%;
+  height: 28%;
+  border-radius: 21px 21px 0 0;
+}
+
+.recipeCardInfo{
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.recipesCardsIngredient{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+li{
+  list-style-type: none;
+}
+
+ul{
+  padding-left: 0;
+}
+
+.componentsQuantity{
+  color: grey;
 }

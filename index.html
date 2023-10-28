@@ -3,29 +3,57 @@
   <head>
     <meta charset="utf-8">
     <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <script src="https://kit.fontawesome.com/7a2cacbeef.js" crossorigin="anonymous"></script>
     <title> Les petits plats </title>
   </head>
   <body>
     <header>
+      <!--logo + background image-->
       <img src="#" alt="Les bons petits plats">
-      <h1> Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses</h1>
-      <!-- input de la barre de recherche-->
+      <div class="centerHeader">
+        <h1> Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses</h1>
+        <!-- input de la barre de recherche-->
+        <div id="searchBar">
+          <input id="searchInput"placeholder="Rechercher une recette, un ingrédient, ...">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+      </div>
     </header>
-    <section>
-      <!-- filtres -->
-      <h2> 1500 recettes</h2>
-    </section>
     <main>
+      <section>
+        <div class="filters">
+          <div class="boxOfFilter">
+            <button id="ingredientsfilter"> Ingrédients <i class="fa-solid fa-chevron-down"></i></button>
+            <div class="whiteBox">
+              <div id="searchIngredients"> <input class="inpuOfSearchInFilters" > </div>
+              <div class="filterList" id="ingredientsList"></div>
+            </div>
+          </div>
+          <div class="boxOfFilter">
+            <button id="devicefilter"> Appareils <i class="fa-solid fa-chevron-down"></i> </button>
+            <div id="searchDevices"> <input class="inpuOfSearchInFilters"> </div>
+            <div class="filterList" id="deviceList"> list of device</div>
+          </div>
+          <div class="boxOfFilter">
+            <button id="toolsfilter"> Ustensiles <i class="fa-solid fa-chevron-down"></i></button>
+            <div id="searchTools"> <input class="inpuOfSearchInFilters"> </div>
+            <div class="filterList" id="toolsList"> list of tools</div>
+          </div>
+        </div>
+        <!-- filtres -->
+        <h2> 1500 recettes</h2>
+      </section>
       <div class="recipesCards">
       <!-- cards des recettes -->
         <div class="recipesCardsHeader">
         </div>
-        
+
       </div>
     </main>
     <script src="scripts/pages/model.js"></script>
     <script src="scripts/pages/controller.js"></script>
     <script src="scripts/pages/views/index.js"></script>
     <script> init()</script>
+    <script> recoveryListOfAll()</script>
   </body>
 </html>
