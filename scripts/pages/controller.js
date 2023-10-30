@@ -5,25 +5,18 @@ async function init() {
   const recipes = await datas.recipes
 
   displayListRecipes(recipes);
+  displaySelectList(recipes);
 };
 
-async function catchIngredients(recette){
-  const model = new Model();
-  const datas = await  model.getDatas();
-  //let array = [];
-  let listOfIngredients = recette.ingredients;
+function displaySelectList(recipes){
 
-  /*for( let ingredient of listOfIngredients){
-    array.push(ingredient)
-  }*/
-  ingredientsListByRecipe(listOfIngredients, recette);
+  let allList = recoveryListOfAll(recipes);
+  fillListOfFilters(allList.filteredArrayOfAllIngredients, allList.filteredArrayOfAllAppliances, allList.filteredArrayOfAllTools);
+  listenerForFilters()
 };
 
 //recuperer la liste de tous les ingredients
-async function recoveryListOfAll(){
-  const model = new Model();
-  const datas = await model.getDatas();
-  const recipes = await datas.recipes;
+function recoveryListOfAll(recipes){
 
   let allIngredients = [];
   let allAppliances = [];
@@ -43,15 +36,20 @@ async function recoveryListOfAll(){
   })
   const filteredArrayAppliances = allAppliances.filter(function(ele, pos) {
     return allAppliances.indexOf(ele) == pos;
-   })
-   const filteredArrayTools = allTools.filter(function(ele, pos) {
+  })
+  const filteredArrayTools = allTools.filter(function(ele, pos) {
     return allTools.indexOf(ele) == pos;
-   })
+  })
 
 
-let filteredArrayOfAllIngredients = filteredArrayIngredients.sort();
-let filteredArrayOfAllAppliances = filteredArrayAppliances.sort();
-let filteredArrayOfAllTools = filteredArrayTools.sort();
+  let filteredArrayOfAllIngredients = filteredArrayIngredients.sort();
+  let filteredArrayOfAllAppliances = filteredArrayAppliances.sort();
+  let filteredArrayOfAllTools = filteredArrayTools.sort();
 
-fillListOfFilters(filteredArrayOfAllIngredients, filteredArrayOfAllAppliances, filteredArrayOfAllTools)
+  return({
+    filteredArrayOfAllIngredients,
+    filteredArrayOfAllAppliances,
+    filteredArrayOfAllTools
+  })
+
 }
