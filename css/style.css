@@ -105,6 +105,18 @@ button{
   width: 179px;
 }
 
+.ingredientDeLaListe:hover{
+  background-color: #FFD15B;
+}
+
+.deviceDeLaListe:hover{
+  background-color: #FFD15B;
+}
+
+.toolDeLaListe:hover{
+  background-color: #FFD15B;
+}
+
 .recipeCards{
   width: 90%;
   background-color: aqua;
@@ -168,4 +180,8 @@ ul{
 
 .componentsQuantity{
   color: grey;
+}
+
+.hide{
+  display: none;
 }
