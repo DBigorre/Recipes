@@ -13,7 +13,7 @@ function displayListRecipes(recipes){
 
     html += `
       <div>
-        <article>
+        <article class="recipes">
           <img src="assets/images/${recipe.image}" alt="Photo de la recette" class="recipePhoto">
           <div class="recipeCardInfo">
             <h2> ${recipe.name}</h2>
@@ -276,15 +276,20 @@ function stockerEtCacherLesFiltresActifs(filteredArrayOfAllIngredients, filtered
 }
 
 function displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserDeviceSelection, arrayOfUserToolSelection){
-  let filtersForYellowDisplay = document.querySelectorAll(".filtersActifs")
+  //let filtersForYellowDisplay = document.querySelectorAll(".filtersActifs")
   let filtersHide = document.querySelectorAll(".yellowFilter")
-  let yellowsFiltersHtml = "";
+  //let yellowsFiltersHtml = "";
 
   for(let filter of filtersHide){
     for(let ingredient of arrayOfUserIngredientSelection){
       if(filter.textContent == ingredient){
         filter.classList.remove("hide")
       }
+      // if ingredient contains hide le sortir du tableau // ça marche pas
+      /*if (filter.classList.contains("hide")){
+        arrayOfUserIngredientSelection = arrayOfUserIngredientSelection.filter(item => item !== filter);
+        console.log(arrayOfUserIngredientSelection)
+      }*/
     }
     for(let device of arrayOfUserDeviceSelection){
       if(filter.textContent == device){
@@ -298,8 +303,9 @@ function displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserDeviceS
     }
   }
 
-  filtersForYellowDisplay.innerHTML = yellowsFiltersHtml
+  //filtersForYellowDisplay.innerHTML = yellowsFiltersHtml
   removeFiltersActifs()
+  displayRecipesWithFilters(arrayOfUserIngredientSelection)
 
 
 
@@ -316,44 +322,102 @@ function displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserDeviceS
 }
 
 // fonction de suppression des filtres si clic sur la croix
-function removeFiltersActifs(){
-  let filtersActif = document.querySelectorAll(".yellowFilter");
-
-  /*for(let filterActif of filtersActif){
-    if (!filterActif.classList.contains("hide")){
-      filterActif.addEventListener("click", function(event) {
-        console.log(filterActif)
-        filterActif.classList.add("hide")
-      })
-    }
-  }
+function removeFiltersActifs(){ // trouver un moyen de faire en sorte que le clic supprime l'element du tableau des choix de l'utilisateur
+  let filtersActif = document.querySelectorAll(".yellowFilter:not(.hide)");
 
   for(let filterActif of filtersActif){
     let filterActifClose = filterActif.querySelector(".fa-xmark")
+    filterActifClose.addEventListener("click", function(event) {
+      filterActif.classList.add("hide")
+
+      arrayOfUserIngredientSelection = arrayOfUserIngredientSelection.filter(item => item !== filterActif.textContent);
+      arrayOfUserDeviceSelection = arrayOfUserDeviceSelection.filter(item => item !== filterActif.textContent);
+      arrayOfUserToolSelection = arrayOfUserToolSelection.filter(item => item !== filterActif.textContent);
+      /*let indexToRemove = arrayOfUserIngredientSelection.indexOf(filterActif)
+      console.log(indexToRemove)
+      if (indexToRemove !== -1) {
+        arrayOfUserIngredientSelection.splice(indexToRemove, 1); // Supprime 1 élément à partir de l'index trouvé
+      } else {
+        console.log("L'élément à supprimer n'a pas été trouvé dans le tableau.");
+      }*/
+    })
+  }
+}
+
+  /*for(let filterActif of filtersActif){
     filterActifClose.addEventListener("click", function(event) {
       console.log(filterActif)
       filterActif.classList.add("hide")
     })
   }*/
-  //let filterActifClose = document.querySelectorAll(".fa-xmark");
-  //for (let filterActif of filtersActif){
-    //console.log(filterActif)
-    //filterActifClose.addEventListener("click", function(event) {
-      //filterActif.classList.add("hide")
-    //})
-  //}
-}
+  /*let filterActifClose = document.querySelectorAll(".fa-xmark");
+  for (let filterActif of filtersActif){
+    console.log(filterActif)
+    filterActifClose.addEventListener("click", function(event) {
+      filterActif.classList.add("hide")
+    })
+  }
+}*/
 
 // fonction pour le triage des recettes
+function displayRecipesWithFilters(arrayOfUserIngredientSelection){
+  //recuperer toutes les recettes
+  let recipes = listRecipes
+  let html= "";
+  //recuperer les filtres rentrés par l'utilisateur
+
+  //selectionner les recettes qui correspondent
+  for (let recipe of recipes){
+    let arrayOfIngredient = recipe.ingredients
+    for (let ingredient of arrayOfIngredient){
+      for (let UserChoice of arrayOfUserIngredientSelection){
+        if(UserChoice.trim() == ingredient.ingredient.trim()){
+
+            let htmlIngredients = getHtmlIngredientsForCard(recipe);
+
+            html += `
+              <div>
+                <article class="recipes">
+                  <img src="assets/images/${recipe.image}" alt="Photo de la recette" class="recipePhoto">
+                  <div class="recipeCardInfo">
+                    <h2> ${recipe.name}</h2>
+                    <h3> Recettes </h3>
+                    <p> ${recipe.description} </p>
+                    <h3> Ingredients </h3>
+                    <div class="recipesCardsIngredient" id="${recipe.name}">
+                    ${htmlIngredients}
+                    </div>
+                  </div>
+                </article>
+              </div>
+            `
+        }
+      }
+    }
+  }
+    let htmlSection = document.querySelector(".recipesCardsHeader")
+    htmlSection.innerHTML = html
+}
+    //let recipesIngredients = recipe.querySelectorAll(".recipesCardsIngredient")
+    /*for( let recipeIngredient of recipesIngredients){
+      console.log(recipeIngredient)
+    }*/
+
+
+  // le faire pour chaque champs de recherche possible
+  //faire pareil en additionnant les differents champs de recherche
+  //afficher le resultat dans le html
+  //console.log(arrayOfUserIngredientSelection)
+  //displayListRecipes(recipes)
+
+//}
 // grosse fonction des filtres
 
 
 
 
 // problemes:
-//lorsque je reselectionne un filtre après une suppression, tous les filtres supprimés reviennent
-
+// pas de mise a jour du array quand suppression des filtres
 
 //a faire:
 // refermer la liste (rajouter un classe open a l'ouverture et si reclick alors que la liste est ouverte faire un display none)
-// supprimer la possibilité de douclons dans les filtres
