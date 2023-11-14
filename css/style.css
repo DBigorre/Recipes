@@ -91,18 +91,24 @@ button{
   display: none;
   background-color: white;
   width: 179px;
+  height: 250px;
+  overflow: scroll;
 }
 
 #deviceList{
   display:none;
   background-color: white;
   width: 179px;
+  height: 250px;
+  overflow: scroll;
 }
 
 #toolsList{
   display:none;
   background-color: white;
   width: 179px;
+  height: 250px;
+  overflow: scroll;
 }
 
 .ingredientDeLaListe:hover{

@@ -107,8 +107,15 @@ function displayIngredientsList(){
   let ingredientSearch = document.getElementById("searchIngredients")
   ingredientList.style.display = "block"
   ingredientSearch.style.display = "block"
+  if (ingredientList.classList.contains("open")){
+    ingredientList.style.display = "none"
+    ingredientSearch.style.display = "none"
+    ingredientList.classList.remove("open")
+  } else{
+    ingredientList.classList.add("open")
+  }
   listenOfIngredientsInput()
-  listenAndStockIngredients()
+  listenAndStockIngredients() // probleme un seul lancement mais trois besoins
 }
 
 function displayDevicesList(){
@@ -116,13 +123,28 @@ function displayDevicesList(){
   let deviceSearch = document.getElementById("searchDevices")
   deviceList.style.display = "block"
   deviceSearch.style.display = "block"
+  if (deviceList.classList.contains("open")){
+    deviceList.style.display = "none"
+    deviceSearch.style.display = "none"
+    deviceList.classList.remove("open")
+  } else {
+    deviceList.classList.add("open")
+  }
   listenOfDeviceInput()
 }
+
 function displayToolsList() {
   let toolsList = document.getElementById("toolsList")
   let toolSearch = document.getElementById("searchTools")
   toolsList.style.display = "block"
   toolSearch.style.display = "block"
+  if (toolsList.classList.contains("open")){
+    toolsList.style.display = "none"
+    toolSearch.style.display = "none"
+    toolsList.classList.remove("open")
+  } else {
+    toolsList.classList.add("open")
+  }
   listenOfToolInput()
 }
 
@@ -373,8 +395,9 @@ function displayRecipesWithFilters(arrayOfUserIngredientSelection){
       for (let UserChoice of arrayOfUserIngredientSelection){
         if(UserChoice.trim() == ingredient.ingredient.trim()){
 
-            let htmlIngredients = getHtmlIngredientsForCard(recipe);
+          let htmlIngredients = getHtmlIngredientsForCard(recipe);
 
+          //afficher le resultat dans le html
             html += `
               <div>
                 <article class="recipes">
@@ -398,6 +421,49 @@ function displayRecipesWithFilters(arrayOfUserIngredientSelection){
     let htmlSection = document.querySelector(".recipesCardsHeader")
     htmlSection.innerHTML = html
 }
+
+
+// code rangé et amelioré
+/*function displayRecipesWithFilters(arrayOfUserIngredientSelection) {
+  let html = "";
+
+  listRecipes.forEach((recipe) => {
+    let filteredIngredients = recipe.ingredients.filter((ingredient) => {
+      return arrayOfUserIngredientSelection.includes(ingredient.ingredient.trim());
+    });
+
+    if (filteredIngredients.length > 0) {
+      html += buildRecipeCardHTML(recipe, filteredIngredients);
+    }
+  });
+
+  let htmlSection = document.querySelector(".recipesCardsHeader");
+  htmlSection.innerHTML = html;
+}
+
+function buildRecipeCardHTML(recipe, filteredIngredients) {
+  let htmlIngredients = getHtmlIngredientsForCard(recipe);
+
+  return `
+    <div>
+      <article class="recipes">
+        <img src="assets/images/${recipe.image}" alt="Photo de la recette" class="recipePhoto">
+        <div class="recipeCardInfo">
+          <h2>${recipe.name}</h2>
+          <h3>Recettes</h3>
+          <p>${recipe.description}</p>
+          <h3>Ingredients</h3>
+          <div class="recipesCardsIngredient" id="${recipe.name}">
+            ${htmlIngredients}
+          </div>
+        </div>
+      </article>
+    </div>
+  `;
+}/*
+
+
+
     //let recipesIngredients = recipe.querySelectorAll(".recipesCardsIngredient")
     /*for( let recipeIngredient of recipesIngredients){
       console.log(recipeIngredient)
@@ -406,18 +472,23 @@ function displayRecipesWithFilters(arrayOfUserIngredientSelection){
 
   // le faire pour chaque champs de recherche possible
   //faire pareil en additionnant les differents champs de recherche
-  //afficher le resultat dans le html
   //console.log(arrayOfUserIngredientSelection)
   //displayListRecipes(recipes)
 
 //}
 // grosse fonction des filtres
 
-
+// idees
+// faire la recherche avec un hidden  -- trop complexe
+// simplifier pour qu'il y ait moins de boucles et d'imbrication
 
 
 // problemes:
 // pas de mise a jour du array quand suppression des filtres
+// voir lancement de la fonction Listen and Stock Ingredients()
+// images qui va pas avec la recette mais json ok
+// pas de cumul des filtres ingredients mais cumul des recettes par contre -- solution boucler sur les recettes qu'il reste après le premier filtres plutot
+// que sur ttes les recettes -- trouver comment faire ça
+
 
 //a faire:
-// refermer la liste (rajouter un classe open a l'ouverture et si reclick alors que la liste est ouverte faire un display none)
