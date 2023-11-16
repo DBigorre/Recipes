@@ -50,7 +50,6 @@ function getHtmlIngredientsForCard(recette){
         </ul>
       `
     }
-  //let htmlIngredients = document.getElementById(recette.name)
   return ingredientsHtml
 }
 
@@ -114,8 +113,7 @@ function displayIngredientsList(){
   } else{
     ingredientList.classList.add("open")
   }
-  listenOfIngredientsInput()
-  listenAndStockIngredients() // probleme un seul lancement mais trois besoins
+  listenOfIngredientsInput();
 }
 
 function displayDevicesList(){
@@ -248,31 +246,7 @@ function listenAndStockIngredients(){
       displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserDeviceSelection, arrayOfUserToolSelection)
     })
   }
-  //displayFiltersActifs(arrayOfUserIngredientSelection)
-
 }
-
-/*function displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserDeviceSelection, arrayOfUserToolSelection){
-  let filtersForYellowDisplay = document.querySelector(".filtersActifs")
-  let yellowsFiltersHtml = "";
-  for (let i of arrayOfUserIngredientSelection){
-    yellowsFiltersHtml += `
-    <button class="yellowFilter"> ${i} <i class="fa-solid fa-xmark"></i></button>
-    `
-  }
-  for (let i of arrayOfUserDeviceSelection){
-    yellowsFiltersHtml += `
-    <button class="yellowFilter"> ${i} <i class="fa-solid fa-xmark"></i></button>
-    `
-  }
-  for (let i of arrayOfUserToolSelection){
-    yellowsFiltersHtml += `
-    <button class="yellowFilter"> ${i} <i class="fa-solid fa-xmark"></i></button>
-    `
-  }
-  filtersForYellowDisplay.innerHTML = yellowsFiltersHtml
-  removeFiltersActifs()
-}*/
 
 function stockerEtCacherLesFiltresActifs(filteredArrayOfAllIngredients, filteredArrayOfAllAppliances, filteredArrayOfAllTools){
   let filtersForYellowDisplay = document.querySelector(".filtersActifs")
@@ -298,20 +272,13 @@ function stockerEtCacherLesFiltresActifs(filteredArrayOfAllIngredients, filtered
 }
 
 function displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserDeviceSelection, arrayOfUserToolSelection){
-  //let filtersForYellowDisplay = document.querySelectorAll(".filtersActifs")
   let filtersHide = document.querySelectorAll(".yellowFilter")
-  //let yellowsFiltersHtml = "";
 
   for(let filter of filtersHide){
     for(let ingredient of arrayOfUserIngredientSelection){
       if(filter.textContent == ingredient){
         filter.classList.remove("hide")
       }
-      // if ingredient contains hide le sortir du tableau // ça marche pas
-      /*if (filter.classList.contains("hide")){
-        arrayOfUserIngredientSelection = arrayOfUserIngredientSelection.filter(item => item !== filter);
-        console.log(arrayOfUserIngredientSelection)
-      }*/
     }
     for(let device of arrayOfUserDeviceSelection){
       if(filter.textContent == device){
@@ -325,27 +292,16 @@ function displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserDeviceS
     }
   }
 
-  //filtersForYellowDisplay.innerHTML = yellowsFiltersHtml
   removeFiltersActifs()
-  displayRecipesWithFilters(arrayOfUserIngredientSelection)
+  stockRecipesWithFiltersIngredient(arrayOfUserIngredientSelection, arrayOfUserDeviceSelection, arrayOfUserToolSelection)
 
-
-
-  /*for (let i of arrayOfUserDeviceSelection){
-    yellowsFiltersHtml += `
-    <button class="yellowFilter"> ${i} <i class="fa-solid fa-xmark"></i></button>
-    `
-  }
-  for (let i of arrayOfUserToolSelection){
-    yellowsFiltersHtml += `
-    <button class="yellowFilter"> ${i} <i class="fa-solid fa-xmark"></i></button>
-    `
-  }*/
+// remettre un hide apres suppression sur tous les filtres et relancer la fonction !!pb voir 319
 }
 
 // fonction de suppression des filtres si clic sur la croix
 function removeFiltersActifs(){ // trouver un moyen de faire en sorte que le clic supprime l'element du tableau des choix de l'utilisateur
   let filtersActif = document.querySelectorAll(".yellowFilter:not(.hide)");
+  let filtersAll = document.querySelectorAll(".yellowFilter")
 
   for(let filterActif of filtersActif){
     let filterActifClose = filterActif.querySelector(".fa-xmark")
@@ -355,127 +311,104 @@ function removeFiltersActifs(){ // trouver un moyen de faire en sorte que le cli
       arrayOfUserIngredientSelection = arrayOfUserIngredientSelection.filter(item => item !== filterActif.textContent);
       arrayOfUserDeviceSelection = arrayOfUserDeviceSelection.filter(item => item !== filterActif.textContent);
       arrayOfUserToolSelection = arrayOfUserToolSelection.filter(item => item !== filterActif.textContent);
-      /*let indexToRemove = arrayOfUserIngredientSelection.indexOf(filterActif)
-      console.log(indexToRemove)
-      if (indexToRemove !== -1) {
-        arrayOfUserIngredientSelection.splice(indexToRemove, 1); // Supprime 1 élément à partir de l'index trouvé
-      } else {
-        console.log("L'élément à supprimer n'a pas été trouvé dans le tableau.");
-      }*/
     })
   }
+  /*for(let filter of filtersActif){
+    filter.classList.add("hide");
+  }
+  displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserDeviceSelection, arrayOfUserToolSelection)*/
+  // !! bloqué dans une boucle
 }
-
-  /*for(let filterActif of filtersActif){
-    filterActifClose.addEventListener("click", function(event) {
-      console.log(filterActif)
-      filterActif.classList.add("hide")
-    })
-  }*/
-  /*let filterActifClose = document.querySelectorAll(".fa-xmark");
-  for (let filterActif of filtersActif){
-    console.log(filterActif)
-    filterActifClose.addEventListener("click", function(event) {
-      filterActif.classList.add("hide")
-    })
-  }
-}*/
 
 // fonction pour le triage des recettes
-function displayRecipesWithFilters(arrayOfUserIngredientSelection){
-  //recuperer toutes les recettes
+function stockRecipesWithFiltersIngredient(arrayOfUserIngredientSelection, arrayOfUserDeviceSelection, arrayOfUserToolSelection){
+  // faire un tamis different pour chaque fonction
+  // 1 pour ingredient
+  // recuperer le tableau depuis le controller
   let recipes = listRecipes
-  let html= "";
-  //recuperer les filtres rentrés par l'utilisateur
+  let recipesFilteredWithIngredient = []
 
-  //selectionner les recettes qui correspondent
-  for (let recipe of recipes){
-    let arrayOfIngredient = recipe.ingredients
-    for (let ingredient of arrayOfIngredient){
-      for (let UserChoice of arrayOfUserIngredientSelection){
-        if(UserChoice.trim() == ingredient.ingredient.trim()){
+  // iterer sur toutes les recettes
+  recipes.forEach((recipe) => {
+    let recipeIngredients = recipe.ingredients;
 
-          let htmlIngredients = getHtmlIngredientsForCard(recipe);
+    // utiliser le every pour verifier que tous les elements du array ingredient user sont dans les recettes
+    let allIngredientsIncluded = arrayOfUserIngredientSelection.every((userIngredient) =>
+      recipeIngredients.some((recipeIngredient) => userIngredient.trim() === recipeIngredient.ingredient.trim())
+    );
 
-          //afficher le resultat dans le html
-            html += `
-              <div>
-                <article class="recipes">
-                  <img src="assets/images/${recipe.image}" alt="Photo de la recette" class="recipePhoto">
-                  <div class="recipeCardInfo">
-                    <h2> ${recipe.name}</h2>
-                    <h3> Recettes </h3>
-                    <p> ${recipe.description} </p>
-                    <h3> Ingredients </h3>
-                    <div class="recipesCardsIngredient" id="${recipe.name}">
-                    ${htmlIngredients}
-                    </div>
-                  </div>
-                </article>
-              </div>
-            `
-        }
-      }
-    }
-  }
-    let htmlSection = document.querySelector(".recipesCardsHeader")
-    htmlSection.innerHTML = html
-}
-
-
-// code rangé et amelioré
-/*function displayRecipesWithFilters(arrayOfUserIngredientSelection) {
-  let html = "";
-
-  listRecipes.forEach((recipe) => {
-    let filteredIngredients = recipe.ingredients.filter((ingredient) => {
-      return arrayOfUserIngredientSelection.includes(ingredient.ingredient.trim());
-    });
-
-    if (filteredIngredients.length > 0) {
-      html += buildRecipeCardHTML(recipe, filteredIngredients);
+    // si c'est le cas les mettre dans un nouveau tableau
+    if (allIngredientsIncluded) {
+      recipesFilteredWithIngredient.push(recipe);
     }
   });
-
-  let htmlSection = document.querySelector(".recipesCardsHeader");
-  htmlSection.innerHTML = html;
+  console.log(recipesFilteredWithIngredient)
+  stockRecipesWithFiltersDevice(recipesFilteredWithIngredient, arrayOfUserDeviceSelection, arrayOfUserToolSelection)
 }
 
-function buildRecipeCardHTML(recipe, filteredIngredients) {
-  let htmlIngredients = getHtmlIngredientsForCard(recipe);
+  // 1 pour device
+function stockRecipesWithFiltersDevice(recipesFilteredWithIngredient, arrayOfUserDeviceSelection, arrayOfUserToolSelection){
+  // recuperer le tableau depuis la fonction precedente
+  let recipes = recipesFilteredWithIngredient;
+  let arrayOfUserDeviceSelectionTrimmed = arrayOfUserDeviceSelection.map(device => device.trim());
 
-  return `
-    <div>
-      <article class="recipes">
-        <img src="assets/images/${recipe.image}" alt="Photo de la recette" class="recipePhoto">
-        <div class="recipeCardInfo">
-          <h2>${recipe.name}</h2>
-          <h3>Recettes</h3>
-          <p>${recipe.description}</p>
-          <h3>Ingredients</h3>
-          <div class="recipesCardsIngredient" id="${recipe.name}">
-            ${htmlIngredients}
-          </div>
-        </div>
-      </article>
-    </div>
-  `;
-}/*
+  if (recipesFilteredWithIngredient.length === 0) {
+    recipes = listRecipes;
+  }
+  let recipesFilteredWithDevice = []
 
 
+  // iterer sur toutes les recettes
+  recipes.forEach((recipe) => {
+    let recipeDevice = recipe.appliance;
 
-    //let recipesIngredients = recipe.querySelectorAll(".recipesCardsIngredient")
-    /*for( let recipeIngredient of recipesIngredients){
-      console.log(recipeIngredient)
-    }*/
+    // verifier que le seul appareil de cuisson soit present dans les filtres selctionnés par le user
+    let deviceIncluded = arrayOfUserDeviceSelectionTrimmed.includes(recipeDevice.trim());
+
+    // si c'est le cas les mettre dans un nouveau tableau
+    if (deviceIncluded) {
+      recipesFilteredWithDevice.push(recipe);
+    }
+    if(recipesFilteredWithDevice.length === 0){
+      recipesFilteredWithDevice = recipesFilteredWithIngredient
+    }
+  });
+  // aller vers la fonction pour les filtres tools
+  console.log(recipesFilteredWithDevice)
+  stockRecipesWithFiltersTools(recipesFilteredWithDevice, arrayOfUserToolSelection)
+};
+
+  // 1 pour tool
+function stockRecipesWithFiltersTools(recipesFilteredWithDevice, arrayOfUserToolSelection){
+  let recipes = recipesFilteredWithDevice;
+  if (recipesFilteredWithDevice.length === 0) {
+    recipes = listRecipes;
+  }
+
+  let recipesFilteredWithTools = []
+
+  // iterer sur toutes les recettes
+  recipes.forEach((recipe) => {
+    let recipeTools = recipe.ustensils;
 
 
-  // le faire pour chaque champs de recherche possible
-  //faire pareil en additionnant les differents champs de recherche
-  //console.log(arrayOfUserIngredientSelection)
-  //displayListRecipes(recipes)
+    // utiliser le every pour verifier que tous les elements du array ingredient user sont dans les recettes
+    let allToolsIncluded = arrayOfUserToolSelection.every((userTool) =>
+    recipeTools.some((recipeTool) => userTool.trim() === recipeTool.trim())
+    );
 
-//}
+    // si c'est le cas les mettre dans un nouveau tableau
+    if (allToolsIncluded) {
+      recipesFilteredWithTools.push(recipe);
+    }
+  });
+  console.log(recipesFilteredWithTools)
+  // relancer l'affichage des recettes
+}
+  // trier les recettes
+
+
+
 // grosse fonction des filtres
 
 // idees
@@ -489,6 +422,9 @@ function buildRecipeCardHTML(recipe, filteredIngredients) {
 // images qui va pas avec la recette mais json ok
 // pas de cumul des filtres ingredients mais cumul des recettes par contre -- solution boucler sur les recettes qu'il reste après le premier filtres plutot
 // que sur ttes les recettes -- trouver comment faire ça
+
+// nouveau problemes
+// filtres qui ne filtrent plus
 
 
 //a faire:
