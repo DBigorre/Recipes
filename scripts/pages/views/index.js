@@ -98,6 +98,7 @@ function listenerForFilters(){
   toolsButton.addEventListener("click", function (event){
     displayToolsList()
   });
+
 }
 
 function displayIngredientsList(){
@@ -203,7 +204,7 @@ function listenOfToolInput(){
   let input = document.getElementById("searchTools");
   let userWord = ""
 
-  input.addEventListener("keypress", function (event){
+  input.addEventListener("keyup", function (event){
     userWord = event.target.value
     trierToolsInList(userWord)
   })
@@ -336,13 +337,13 @@ function stockRecipesWithFiltersIngredient(arrayOfUserIngredientSelection, array
     let allIngredientsIncluded = arrayOfUserIngredientSelection.every((userIngredient) =>
       recipeIngredients.some((recipeIngredient) => userIngredient.trim() === recipeIngredient.ingredient.trim())
     );
-
+    //console.log(arrayOfUserIngredientSelection)
     // si c'est le cas les mettre dans un nouveau tableau
     if (allIngredientsIncluded) {
       recipesFilteredWithIngredient.push(recipe);
     }
   });
-  console.log(recipesFilteredWithIngredient)
+
   stockRecipesWithFiltersDevice(recipesFilteredWithIngredient, arrayOfUserDeviceSelection, arrayOfUserToolSelection)
 }
 
@@ -374,7 +375,6 @@ function stockRecipesWithFiltersDevice(recipesFilteredWithIngredient, arrayOfUse
     }
   });
   // aller vers la fonction pour les filtres tools
-  console.log(recipesFilteredWithDevice)
   stockRecipesWithFiltersTools(recipesFilteredWithDevice, arrayOfUserToolSelection)
 };
 
@@ -404,27 +404,44 @@ function stockRecipesWithFiltersTools(recipesFilteredWithDevice, arrayOfUserTool
   });
   console.log(recipesFilteredWithTools)
   // relancer l'affichage des recettes
+  displayListRecipes(recipesFilteredWithTools)
 }
-  // trier les recettes
-
-
 
 // grosse fonction des filtres
+function grosseFonctionDesFiltresEcoute(){
+// déclarer les variables utiles
+  let bigInput = document.getElementById("searchInput");
+  let userWord = "";
+  let arrayOfUserSelectionBigInput = [];
+  let searchButton = document.querySelector(".fa-magnifying-glass")
 
-// idees
-// faire la recherche avec un hidden  -- trop complexe
-// simplifier pour qu'il y ait moins de boucles et d'imbrication
+  // faire une écoute dans le input
+  bigInput.addEventListener("keyup", function (event){
+    // selectionner la rentrée User
+    userWord = event.target.value
+  });
+  searchButton.addEventListener("click", function (event){
+    arrayOfUserSelectionBigInput.push(userWord)
+    grosseFonctionDesFiltresTraitement(arrayOfUserSelectionBigInput)
+  });
+  // le stocker dans un tableau
+
+  // Ecouter la loupe ou le enter
+  // le refaire passer dans les trois filtres tamis
+}
+
+function grosseFonctionDesFiltresTraitement(arrayOfUserSelectionBigInput) {
+
+  console.log(arrayOfUserSelectionBigInput)
+  stockRecipesWithFiltersIngredient(arrayOfUserSelectionBigInput, arrayOfUserSelectionBigInput, arrayOfUserSelectionBigInput)
+}
+
 
 
 // problemes:
 // pas de mise a jour du array quand suppression des filtres
-// voir lancement de la fonction Listen and Stock Ingredients()
-// images qui va pas avec la recette mais json ok
-// pas de cumul des filtres ingredients mais cumul des recettes par contre -- solution boucler sur les recettes qu'il reste après le premier filtres plutot
-// que sur ttes les recettes -- trouver comment faire ça
-
-// nouveau problemes
-// filtres qui ne filtrent plus
+// que faire si pas de recette? (question a poser à David)
 
 
 //a faire:
+// css ++

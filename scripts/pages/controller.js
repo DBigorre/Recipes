@@ -6,7 +6,8 @@ async function init() {
 
   displayListRecipes(recipes);
   displaySelectList(recipes);
-  listenAndStockIngredients() 
+  listenAndStockIngredients();
+  grosseFonctionDesFiltresEcoute()
 };
 
 function displaySelectList(recipes){
