@@ -337,13 +337,11 @@ function stockRecipesWithFiltersIngredient(arrayOfUserIngredientSelection, array
     let allIngredientsIncluded = arrayOfUserIngredientSelection.every((userIngredient) =>
       recipeIngredients.some((recipeIngredient) => userIngredient.trim() === recipeIngredient.ingredient.trim())
     );
-    //console.log(arrayOfUserIngredientSelection)
     // si c'est le cas les mettre dans un nouveau tableau
     if (allIngredientsIncluded) {
       recipesFilteredWithIngredient.push(recipe);
     }
   });
-
   stockRecipesWithFiltersDevice(recipesFilteredWithIngredient, arrayOfUserDeviceSelection, arrayOfUserToolSelection)
 }
 
@@ -381,11 +379,13 @@ function stockRecipesWithFiltersDevice(recipesFilteredWithIngredient, arrayOfUse
   // 1 pour tool
 function stockRecipesWithFiltersTools(recipesFilteredWithDevice, arrayOfUserToolSelection){
   let recipes = recipesFilteredWithDevice;
+
   if (recipesFilteredWithDevice.length === 0) {
     recipes = listRecipes;
   }
 
   let recipesFilteredWithTools = []
+  console.log(arrayOfUserToolSelection)
 
   // iterer sur toutes les recettes
   recipes.forEach((recipe) => {
@@ -402,9 +402,13 @@ function stockRecipesWithFiltersTools(recipesFilteredWithDevice, arrayOfUserTool
       recipesFilteredWithTools.push(recipe);
     }
   });
-  console.log(recipesFilteredWithTools)
+  
   // relancer l'affichage des recettes
-  displayListRecipes(recipesFilteredWithTools)
+  if (recipesFilteredWithTools.length === 0){
+    displayListRecipes(recipesFilteredWithDevice)
+  } else {
+    displayListRecipes(recipesFilteredWithTools)
+  }
 }
 
 // grosse fonction des filtres
