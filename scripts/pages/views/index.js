@@ -4,9 +4,14 @@ let arrayOfUserToolSelection = [];
 // variable globale, liste des recettes que la vue est en train d'afficher
 let listRecipes = null;
 
+function initIndex(recipes){
+  listRecipes = recipes
+}
+
 function displayListRecipes(recipes){
   let html= "";
-  listRecipes = recipes;
+  //listRecipes = recipes;
+
 
   for (let recipe of recipes) {
     let htmlIngredients = getHtmlIngredientsForCard(recipe);
@@ -294,15 +299,23 @@ function displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserDeviceS
   }
 
   removeFiltersActifs()
-  stockRecipesWithFiltersIngredient(arrayOfUserIngredientSelection, arrayOfUserDeviceSelection, arrayOfUserToolSelection)
+  maman();
+}
 
-// remettre un hide apres suppression sur tous les filtres et relancer la fonction !!pb voir 319
+function maman(){
+  let filteredRecipes
+  filteredRecipes = stockRecipesWithFiltersIngredient(arrayOfUserIngredientSelection, arrayOfUserDeviceSelection, arrayOfUserToolSelection)
+  filteredRecipes = stockRecipesWithFiltersDevice(filteredRecipes, arrayOfUserDeviceSelection, arrayOfUserToolSelection)
+  filteredRecipes = stockRecipesWithFiltersTools(filteredRecipes, arrayOfUserToolSelection)
+
+  displayListRecipes(filteredRecipes)
+
+
 }
 
 // fonction de suppression des filtres si clic sur la croix
 function removeFiltersActifs(){ // trouver un moyen de faire en sorte que le clic supprime l'element du tableau des choix de l'utilisateur
   let filtersActif = document.querySelectorAll(".yellowFilter:not(.hide)");
-  let filtersAll = document.querySelectorAll(".yellowFilter")
 
   for(let filterActif of filtersActif){
     let filterActifClose = filterActif.querySelector(".fa-xmark")
@@ -310,15 +323,12 @@ function removeFiltersActifs(){ // trouver un moyen de faire en sorte que le cli
       filterActif.classList.add("hide")
 
       arrayOfUserIngredientSelection = arrayOfUserIngredientSelection.filter(item => item !== filterActif.textContent);
+      console.log(arrayOfUserIngredientSelection)
       arrayOfUserDeviceSelection = arrayOfUserDeviceSelection.filter(item => item !== filterActif.textContent);
       arrayOfUserToolSelection = arrayOfUserToolSelection.filter(item => item !== filterActif.textContent);
+      maman()
     })
   }
-  /*for(let filter of filtersActif){
-    filter.classList.add("hide");
-  }
-  displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserDeviceSelection, arrayOfUserToolSelection)*/
-  // !! bloqué dans une boucle
 }
 
 // fonction pour le triage des recettes
@@ -326,7 +336,7 @@ function stockRecipesWithFiltersIngredient(arrayOfUserIngredientSelection, array
   // faire un tamis different pour chaque fonction
   // 1 pour ingredient
   // recuperer le tableau depuis le controller
-  let recipes = listRecipes
+  let recipes = [...listRecipes]
   let recipesFilteredWithIngredient = []
 
   // iterer sur toutes les recettes
@@ -342,7 +352,7 @@ function stockRecipesWithFiltersIngredient(arrayOfUserIngredientSelection, array
       recipesFilteredWithIngredient.push(recipe);
     }
   });
-  stockRecipesWithFiltersDevice(recipesFilteredWithIngredient, arrayOfUserDeviceSelection, arrayOfUserToolSelection)
+  return recipesFilteredWithIngredient
 }
 
   // 1 pour device
@@ -373,7 +383,7 @@ function stockRecipesWithFiltersDevice(recipesFilteredWithIngredient, arrayOfUse
     }
   });
   // aller vers la fonction pour les filtres tools
-  stockRecipesWithFiltersTools(recipesFilteredWithDevice, arrayOfUserToolSelection)
+  return recipesFilteredWithDevice
 };
 
   // 1 pour tool
@@ -385,7 +395,6 @@ function stockRecipesWithFiltersTools(recipesFilteredWithDevice, arrayOfUserTool
   }
 
   let recipesFilteredWithTools = []
-  console.log(arrayOfUserToolSelection)
 
   // iterer sur toutes les recettes
   recipes.forEach((recipe) => {
@@ -402,13 +411,8 @@ function stockRecipesWithFiltersTools(recipesFilteredWithDevice, arrayOfUserTool
       recipesFilteredWithTools.push(recipe);
     }
   });
-  
   // relancer l'affichage des recettes
-  if (recipesFilteredWithTools.length === 0){
-    displayListRecipes(recipesFilteredWithDevice)
-  } else {
-    displayListRecipes(recipesFilteredWithTools)
-  }
+    return recipesFilteredWithTools
 }
 
 // grosse fonction des filtres
@@ -436,16 +440,18 @@ function grosseFonctionDesFiltresEcoute(){
 
 function grosseFonctionDesFiltresTraitement(arrayOfUserSelectionBigInput) {
 
-  console.log(arrayOfUserSelectionBigInput)
-  stockRecipesWithFiltersIngredient(arrayOfUserSelectionBigInput, arrayOfUserSelectionBigInput, arrayOfUserSelectionBigInput)
+  //maman()
+  return arrayOfUserSelectionBigInput
 }
 
 
 
 // problemes:
 // pas de mise a jour du array quand suppression des filtres
-// que faire si pas de recette? (question a poser à David)
-
 
 //a faire:
 // css ++
+// suppression des filtres
+// que faire si pas de recette? (question a poser à David)
+
+// fonction grosse qui itere avec include sur la description et le titre en plus des ingredients

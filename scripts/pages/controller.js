@@ -4,6 +4,7 @@ async function init() {
   const datas = await  model.getDatas();
   const recipes = await datas.recipes
 
+  initIndex(recipes);
   displayListRecipes(recipes);
   displaySelectList(recipes);
   listenAndStockIngredients();
