@@ -1,7 +1,7 @@
 let arrayOfUserIngredientSelection = [];
-let arrayOfUserDeviceSelection = [];
+let arrayOfUserApplianceSelection = [];
 let arrayOfUserToolSelection = [];
-let arrayOfUserSelectionBigInput = [];
+let searchText = "";
 // variable globale, liste des recettes que la vue est en train d'afficher
 let listRecipes = null;
 
@@ -232,25 +232,28 @@ function trierToolsInList(userWord) {
 //Ecoute et stockage des ingredients, devices et tools
 function listenAndStockIngredients(){
   let listOfIngredients = document.querySelectorAll(".ingredientDeLaListe");
-  let listOfDevices = document.querySelectorAll(".deviceDeLaListe");
+  let listOfAppliances = document.querySelectorAll(".deviceDeLaListe");
   let listOfTools = document.querySelectorAll(".toolDeLaListe");
 
   for(let ingredient of listOfIngredients){
     ingredient.addEventListener("click", function(event){
       arrayOfUserIngredientSelection.push(ingredient.textContent)
-      displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserDeviceSelection, arrayOfUserToolSelection)
+      displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserApplianceSelection, arrayOfUserToolSelection)
+      maman();
     })
   }
-  for(let device of listOfDevices){
-    device.addEventListener("click", function(event){
-      arrayOfUserDeviceSelection.push(device.textContent)
-      displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserDeviceSelection, arrayOfUserToolSelection)
+  for(let appliance of listOfAppliances){
+    appliance.addEventListener("click", function(event){
+      arrayOfUserApplianceSelection.push(appliance.textContent)
+      displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserApplianceSelection, arrayOfUserToolSelection)
+      maman();
     })
   }
   for(let tool of listOfTools){
     tool.addEventListener("click", function(event){
       arrayOfUserToolSelection.push(tool.textContent)
-      displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserDeviceSelection, arrayOfUserToolSelection)
+      displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserApplianceSelection, arrayOfUserToolSelection)
+      maman();
     })
   }
 }
@@ -300,27 +303,46 @@ function displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserDeviceS
   }
 
   removeFiltersActifs()
-  maman();
+
 }
 
-function maman(){
-  let filteredRecipes
-  console.log("maman")
-  console.log(filteredRecipes)
+function maman() {
+  let filteredRecipes = [...listRecipes]
 
-  filteredRecipes = stockRecipesWithFiltersIngredient(filteredRecipes, arrayOfUserIngredientSelection)
-  filteredRecipes = stockRecipesWithFiltersDevice(filteredRecipes, arrayOfUserDeviceSelection)
-  filteredRecipes = stockRecipesWithFiltersTools(filteredRecipes, arrayOfUserToolSelection)
-
-  filteredRecipes = grosseFonctionDesFiltresTraitement(filteredRecipes, arrayOfUserSelectionBigInput)
-  filteredRecipes = grosseFonctionDesFiltresTraitementParTitre(filteredRecipes, arrayOfUserSelectionBigInput)
-
+  filteredRecipes = filterByIngredients(filteredRecipes, arrayOfUserIngredientSelection)
+  filteredRecipes = filterByAppliances(filteredRecipes, arrayOfUserApplianceSelection)
+  filteredRecipes = filterByUstensils(filteredRecipes, arrayOfUserToolSelection)
+  filteredRecipes = filterBySearchText(filteredRecipes, searchText)
 
   displayListRecipes(filteredRecipes)
-  // problème dans l'ordre d'appel???
-  // probleme de cumul des resultats (supprimer les doublons avant affichage)
-  // probleme de filteredRecipes qui revient à zero au debut de la fonction
 }
+
+function filterBySearchText(filteredRecipes, searchText) {
+  let searchResult = []
+
+  for (recipe of filteredRecipes){
+    if (recipe.name.includes(searchText) || recipe.description.includes(searchText)){
+      searchResult.push(recipe)
+    } else {
+      for( ingredient of recipe.ingredients){
+        if ( ingredient.ingredient.includes(searchText)){
+          searchResult.push(recipe)
+          break
+        }
+      }
+    }
+  }
+  return searchResult
+}
+
+//deuxieme fonction avec l'input de recherche pour le test
+function filterBySearchTextTest(filteredRecipes, searchText) {
+  return filteredRecipes.filter(recipe => recipe.name.includes(searchText) || recipe.description.includes(searchText) ||
+  recipe.ingredients.some(ingredient => ingredient.ingredient.includes(searchText))
+  );
+}
+
+
 
 // fonction de suppression des filtres si clic sur la croix
 function removeFiltersActifs(){
@@ -332,7 +354,7 @@ function removeFiltersActifs(){
       filterActif.classList.add("hide")
 
       arrayOfUserIngredientSelection = arrayOfUserIngredientSelection.filter(item => item !== filterActif.textContent);
-      arrayOfUserDeviceSelection = arrayOfUserDeviceSelection.filter(item => item !== filterActif.textContent);
+      arrayOfUserApplianceSelection = arrayOfUserApplianceSelection.filter(item => item !== filterActif.textContent);
       arrayOfUserToolSelection = arrayOfUserToolSelection.filter(item => item !== filterActif.textContent);
       maman()
     })
@@ -340,20 +362,16 @@ function removeFiltersActifs(){
 }
 
 // fonction pour le triage des recettes
-function stockRecipesWithFiltersIngredient(filteredRecipes, arrayOfUserIngredientSelection){
+function filterByIngredients(filteredRecipes, arrayOfUserIngredientSelection){
   // faire un tamis different pour chaque fonction
   // 1 pour ingredient
   // recuperer le tableau depuis le controller
 
-  let recipes = filteredRecipes;
-  if (filteredRecipes === undefined) {
-    recipes = [...listRecipes];
-  }
-  console.log(recipes)
+
   let recipesFilteredWithIngredient = []
 
   // iterer sur toutes les recettes
-  recipes.forEach((recipe) => {
+  filteredRecipes.forEach((recipe) => {
     let recipeIngredients = recipe.ingredients;
 
     // utiliser le every pour verifier que tous les elements du array ingredient user sont dans les recettes
@@ -369,50 +387,40 @@ function stockRecipesWithFiltersIngredient(filteredRecipes, arrayOfUserIngredien
 }
 
   // 1 pour device
-function stockRecipesWithFiltersDevice(recipesFilteredWithIngredient, arrayOfUserDeviceSelection){
+function filterByAppliances(filteredRecipes, arrayOfUserApplianceSelection){
   // recuperer le tableau depuis la fonction precedente
-  let recipes = recipesFilteredWithIngredient;
-  let arrayOfUserDeviceSelectionTrimmed = arrayOfUserDeviceSelection.map(device => device.trim());
-
-  console.log(recipesFilteredWithIngredient)
-  if (recipesFilteredWithIngredient.length === 0) {
-    recipes = listRecipes;
+  if (arrayOfUserApplianceSelection.length === 0 ){
+    return filteredRecipes
   }
 
-  let recipesFilteredWithDevice = []
+  let arrayOfUserApplianceSelectionTrimmed = arrayOfUserApplianceSelection.map(appliance => appliance.trim());
+
+
+  let recipesFilteredWithAppliance = []
 
   // iterer sur toutes les recettes
-  recipes.forEach((recipe) => {
-    let recipeDevice = recipe.appliance;
+  filteredRecipes.forEach((recipe) => {
+    let recipeAppliance = recipe.appliance;
 
     // verifier que le seul appareil de cuisson soit present dans les filtres selctionnés par le user
-    let deviceIncluded = arrayOfUserDeviceSelectionTrimmed.includes(recipeDevice.trim());
+    let applianceIncluded = arrayOfUserApplianceSelectionTrimmed.includes(recipeAppliance.trim());
 
     // si c'est le cas les mettre dans un nouveau tableau
-    if (deviceIncluded) {
-      recipesFilteredWithDevice.push(recipe);
-    }
-    if(recipesFilteredWithDevice.length === 0){
-      recipesFilteredWithDevice = recipesFilteredWithIngredient
+    if (applianceIncluded) {
+      recipesFilteredWithAppliance.push(recipe);
     }
   });
-  console.log(recipesFilteredWithDevice)
-  // aller vers la fonction pour les filtres tools
-  return recipesFilteredWithDevice
+
+  return recipesFilteredWithAppliance
+  // device en appliance renom
 };
 
   // 1 pour tool
-function stockRecipesWithFiltersTools(recipesFilteredWithDevice, arrayOfUserToolSelection){
-  let recipes = recipesFilteredWithDevice;
-
-  if (recipesFilteredWithDevice.length === 0) {
-    recipes = listRecipes;
-  }
-
+function filterByUstensils(filteredRecipes, arrayOfUserToolSelection){
   let recipesFilteredWithTools = []
 
   // iterer sur toutes les recettes
-  recipes.forEach((recipe) => {
+  filteredRecipes.forEach((recipe) => {
     let recipeTools = recipe.ustensils;
 
 
@@ -426,94 +434,35 @@ function stockRecipesWithFiltersTools(recipesFilteredWithDevice, arrayOfUserTool
       recipesFilteredWithTools.push(recipe);
     }
   });
-  // relancer l'affichage des recettes
-    return recipesFilteredWithTools
+  return recipesFilteredWithTools
 }
 
 // grosse fonction des filtres
 function grosseFonctionDesFiltresEcoute(){
 // déclarer les variables utiles
   let bigInput = document.getElementById("searchInput");
-  let userWord = "";
-  let searchButton = document.querySelector(".fa-magnifying-glass")
 
   // faire une écoute dans le input
   bigInput.addEventListener("keyup", function (event){
     // selectionner la rentrée User
-    userWord = event.target.value
-  });
-  searchButton.addEventListener("click", function (event){
-    // le stocker dans un tableau
-    arrayOfUserSelectionBigInput.push(userWord)
-    //grosseFonctionDesFiltresTraitement(recipesFiltred, arrayOfUserSelectionBigInput)
-    // trouver un moyen de lancer la fonction maman tout en retournant le tableau filtré pour la fonction suivante
-    maman()
-    return arrayOfUserSelectionBigInput
-  });
-
-
-  // Ecouter la loupe ou le enter
-  // le faire passer dans maman
-}
-
-function grosseFonctionDesFiltresTraitement(recipesFiltred, arrayOfUserSelectionBigInput) {
-  let recipes = recipesFiltred
-
-  if (recipesFiltred.length === 0) {
-    recipes = [...listRecipes];
-  }
-
-  let recipesFilteredByBigInput = []
-
-  // iterer sur toutes les recettes
-  recipes.forEach((recipe) => {
-    let recipeIngredients = recipe.ingredients;
-
-    // utiliser le every pour verifier que tous les elements du array ingredient user sont dans les recettes
-    let allIngredientsIncluded = arrayOfUserSelectionBigInput.every((userIngredient) =>
-      recipeIngredients.some((recipeIngredient) => userIngredient.trim() === recipeIngredient.ingredient.trim())
-    );
-
-    // si c'est le cas les mettre dans un nouveau tableau
-    if (allIngredientsIncluded) {
-      recipesFilteredByBigInput.push(recipe);
+    searchText = event.target.value.trim()
+    if (searchText.length >= 3){
+      maman()
     }
   });
-  return recipesFilteredByBigInput
 }
 
-//recherche dans le nom de la recette
-function grosseFonctionDesFiltresTraitementParTitre(recipesFiltred, arrayOfUserSelectionBigInput){
-  let recipes = recipesFiltred
-  let recipesFilteredByBigInputName = []
 
-  if (recipesFiltred.length === 0) {
-    recipes = [...listRecipes];
-  }
-
-
-  recipes.forEach((recipe) => {
-    let recipeName = recipe.name;
-    let wordIncluded = recipeName.includes(arrayOfUserSelectionBigInput);
-
-    if (wordIncluded){
-      recipesFilteredByBigInputName.push(recipe)
-    }
-  })
-
-  return recipesFilteredByBigInputName
-}
 
 
 
 //a faire:
 // css ++
-// refaire la grosse fonction en fonction des ingredients, de la recherche texte dans le titre et de la recherche texte dans la recette en elle-meme
 // faire un message si pas de recette
-// fonction grosse qui itere avec include sur la description
+// renommer tous les tools en ustensils
+// faire une deuxieme fonction de recherche dans l'input
+// la rentrer dans js bench pour la tester
 
-//problème:
-// pas de cumul entre petits filtres et grosse fonction
 
-
-// ligne 439
+//probleme
+// cumul des filtres appliance
