@@ -11,9 +11,18 @@ function initIndex(recipes){
 
 function displayListRecipes(recipes){
   let html= "";
-  //listRecipes = recipes;
+  let errorSection = document.querySelector(".errorMessage")
 
+  if (recipes.length == 0){
 
+    html +=`
+        <h2> Nous sommes désolés, aucune recette ne correspond aux filtres sélectionnés... </h2>
+    `
+    errorSection.innerHTML = html
+  } else {
+    errorSection.innerHTML = "";
+  }
+  html = "";
   for (let recipe of recipes) {
     let htmlIngredients = getHtmlIngredientsForCard(recipe);
 
@@ -34,6 +43,7 @@ function displayListRecipes(recipes){
       </div>
     `
   }
+
   let htmlSection = document.querySelector(".recipesCardsHeader")
   htmlSection.innerHTML = html
 }
@@ -69,11 +79,18 @@ function fillListOfFilters(filteredArrayOfAllIngredients, filteredArrayOfAllAppl
   let deviceListHtml = "";
   let toolsListHtml = "";
 
+  /*if(filteredArrayOfAllIngredients.some(item => typeof item === 'object')){
+    for (let ingredient of filteredArrayOfAllIngredients){
+      ingredientsListHtml += `
+          <li class="ingredientDeLaListe"> ${ingredient.ingredient} </li>
+      `
+    }
+  } else {*/
   for (let i of filteredArrayOfAllIngredients){
     ingredientsListHtml += `
         <li class="ingredientDeLaListe"> ${i} </li>
     `
-  };
+  }
   listOfFilterIngredients.innerHTML = ingredientsListHtml
 
   for (let i of filteredArrayOfAllAppliances){
@@ -82,6 +99,7 @@ function fillListOfFilters(filteredArrayOfAllIngredients, filteredArrayOfAllAppl
     `
   };
   listOfFilterDevice.innerHTML = deviceListHtml
+
   for (let i of filteredArrayOfAllTools){
     toolsListHtml += `
         <li class="toolDeLaListe"> ${i} </li>
@@ -301,9 +319,7 @@ function displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserDeviceS
       }
     }
   }
-
   removeFiltersActifs()
-
 }
 
 function maman() {
@@ -453,16 +469,13 @@ function grosseFonctionDesFiltresEcoute(){
 }
 
 
-
-
-
 //a faire:
 // css ++
-// faire un message si pas de recette
-// renommer tous les tools en ustensils
-// faire une deuxieme fonction de recherche dans l'input
-// la rentrer dans js bench pour la tester
 
+//problemes
+// function fill list of filter
 
-//probleme
-// cumul des filtres appliance
+//essai 1, iterer directement sur ce qui s'affiche
+//essai 2, verifier si correspondance entre affichage et liste et mettre hidden si false
+//essai 3, nouvelle fonction qui va chercher directement les infos dans le html
+
