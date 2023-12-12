@@ -61,7 +61,7 @@ function getHtmlIngredientsForCard(recette){
     };
       ingredientsHtml += `
         <ul>
-          <li> ${components.ingredient} </li>
+          <li class="componentsIngredient"> ${components.ingredient} </li>
           <li class="componentsQuantity"> ${components.quantity} ${components.unit}</li>
         </ul>
       `
@@ -79,13 +79,6 @@ function fillListOfFilters(filteredArrayOfAllIngredients, filteredArrayOfAllAppl
   let deviceListHtml = "";
   let toolsListHtml = "";
 
-  /*if(filteredArrayOfAllIngredients.some(item => typeof item === 'object')){
-    for (let ingredient of filteredArrayOfAllIngredients){
-      ingredientsListHtml += `
-          <li class="ingredientDeLaListe"> ${ingredient.ingredient} </li>
-      `
-    }
-  } else {*/
   for (let i of filteredArrayOfAllIngredients){
     ingredientsListHtml += `
         <li class="ingredientDeLaListe"> ${i} </li>
@@ -106,7 +99,8 @@ function fillListOfFilters(filteredArrayOfAllIngredients, filteredArrayOfAllAppl
     `
   };
   listOfFilterTools.innerHTML = toolsListHtml
-};
+  listenAndStockIngredients()
+}
 
 function listenerForFilters(){
   let ingredientsButton = document.getElementById("ingredientsfilter")
@@ -331,6 +325,8 @@ function maman() {
   filteredRecipes = filterBySearchText(filteredRecipes, searchText)
 
   displayListRecipes(filteredRecipes)
+  let allList = recoveryListOfAll(filteredRecipes);
+  fillListOfFilters(allList.filteredArrayOfAllIngredients, allList.filteredArrayOfAllAppliances, allList.filteredArrayOfAllTools);
 }
 
 function filterBySearchText(filteredRecipes, searchText) {
@@ -478,4 +474,3 @@ function grosseFonctionDesFiltresEcoute(){
 //essai 1, iterer directement sur ce qui s'affiche
 //essai 2, verifier si correspondance entre affichage et liste et mettre hidden si false
 //essai 3, nouvelle fonction qui va chercher directement les infos dans le html
-

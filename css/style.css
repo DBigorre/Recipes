@@ -17,6 +17,7 @@ section{
 
 .centerHeader{
   margin: 13%;
+  text-align: center;
 }
 
 header h1{
@@ -32,14 +33,25 @@ header h1{
 #searchInput{
   height: 48px;
   width: 100%;
-  border-radius: 11px 0 0 11px;
+  border-radius: 11px;
 }
 
-.fa-magnifying-glass{
-  background-color: white;
-  height: 53px;
-  width: 53px;
-  border-radius: 0 11px 11px 0;
+
+#blackButtonGlass{
+  display: flex;
+  align-items: center;
+  margin: auto;
+  align-content: center;
+  height: 42px;
+  width: 42px;
+  margin-left: -49px;
+  background-color: #1B1B1B;
+  color: #7A7A7A;
+  border-radius: 5px;
+}
+
+#glassBtn{
+  margin: auto;
   font-size: x-large;
 }
 
@@ -48,15 +60,19 @@ section{
   justify-content: space-between;
 }
 
+#headerRecettes{
+  color: #1B1B1B;
+  font-size: 21px;
+  font-family: Anton;
+  font-weight: 400;
+  word-wrap: break-word
+}
+
 button{
-  width: 179px;
   height: 56px;
-  border-radius: 11px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-weight: 500;
-  font-size: 16px;
   background-color: white;
   border: none;
 }
@@ -66,49 +82,153 @@ button{
   gap: 63px;
 }
 
-#searchIngredients{
+.boxOfFilter{
+  width: 230px;
+  border-radius: 11px;
+
+}
+
+.filter{
+  color: #1B1B1B;
+  font-size: 16px;
+  font-family: Manrope;
+  font-weight: 500;
+  word-wrap: break-word;
+  width: 100%;
+  border-radius: 11px 11px 0 0;
+  padding-left: 16px;
+}
+
+/*#ingredientsfilter{
+  color: #1B1B1B;
+  font-size: 16px;
+  font-family: Manrope;
+  font-weight: 500;
+  word-wrap: break-word;
+  width: 100%;
+  border-radius: 11px 11px 0 0;
+
+}
+
+#devicefilter{
+  color: #1B1B1B;
+  font-size: 16px;
+  font-family: Manrope;
+  font-weight: 500;
+  word-wrap: break-word;
+  width: 100%;
+  border-radius: 11px 11px 0 0;
+
+}
+
+#toolsfilter{
+  color: #1B1B1B;
+  font-size: 16px;
+  font-family: Manrope;
+  font-weight: 500;
+  word-wrap: break-word;
+  width: 100%;
+  border-radius: 11px 11px 0 0;
+
+}*/
+
+.searchInFilter{
   display: none;
   height: 36px;
   border-radius: 2px;
+  background-color: white;
+  padding: 10px;
+}
+
+/*#searchIngredients{
+  display: none;
+  height: 36px;
+  border-radius: 2px;
+  background-color: white;
+  padding: 10px;
 }
 
 #searchDevices{
   display: none;
+  height: 36px;
+  border-radius: 2px;
+  background-color: white;
+  padding: 10px;
 }
 
 #searchTools{
   display: none;
-}
+  height: 36px;
+  border-radius: 2px;
+  background-color: white;
+  padding: 10px;
+}*/
 
 .inpuOfSearchInFilters{
   height: 36px;
   border: solid 1px;
-  width: 163px;
+  width: 173px;
   border-radius: 2px;
+  margin: 0px 16px 8px 16px;
 }
+
+.loupeFilter{
+  margin-left: -40px;
+  color: #7A7A7A;
+}
+
+/*.filterList{
+  background-color: white;
+  margin-top: 0;
+  height: 250px;
+  overflow: overlay;
+  color: #1B1B1B;
+  font-size: 14px;
+  font-family: Manrope;
+  font-weight: 400;
+  word-wrap: break-word;
+}*/
 
 #ingredientsList{
   display: none;
   background-color: white;
-  width: 179px;
+  margin-top: 0;
   height: 250px;
-  overflow: scroll;
+  overflow: overlay;
+  color: #1B1B1B;
+  font-size: 14px;
+  font-family: Manrope;
+  font-weight: 400;
+  word-wrap: break-word;
+  padding-left: 16px
 }
 
 #deviceList{
   display:none;
   background-color: white;
-  width: 179px;
+  margin-top: 0;
   height: 250px;
-  overflow: scroll;
+  overflow: overlay;
+  color: #1B1B1B;
+  font-size: 14px;
+  font-family: Manrope;
+  font-weight: 400;
+  word-wrap: break-word;
+  padding-left: 16px
 }
 
 #toolsList{
   display:none;
   background-color: white;
-  width: 179px;
+  margin-top: 0;
   height: 250px;
-  overflow: scroll;
+  overflow: overlay;
+  color: #1B1B1B;
+  font-size: 14px;
+  font-family: Manrope;
+  font-weight: 400;
+  word-wrap: break-word;
+  padding-left: 16px
 }
 
 .ingredientDeLaListe:hover{
@@ -123,19 +243,53 @@ button{
   background-color: #FFD15B;
 }
 
+.filtersActifsSection{
+  justify-content: end;
+}
+
+.yellowFilter{
+  color: black;
+  font-size: 14px;
+  font-family: Manrope;
+  font-weight: 400;
+  word-wrap: break-word;
+  background-color: #FFD15B;
+}
+
+.errorMessage h2{
+  background-color: #e8e8e8;
+  margin: 0;
+}
+
 .recipeCards{
   width: 90%;
-  background-color: aqua;
 }
 
 .recipesCardsHeader h3{
-  margin-bottom: 2px;
-  color: grey;
+  color: #7A7A7A;
+  font-size: 12px;
+  font-family: Manrope;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.08px;
+  word-wrap: break-word
+
 }
 
 .recipesCardsHeader h2{
-  font-weight: bolder;
-  font-size: 22px;
+  color: #1B1B1B;
+  font-size: 18px;
+  font-family: Anton;
+  font-weight: 400;
+  word-wrap: break-word
+}
+
+.recipeCards p{
+  color: #1B1B1B;
+  font-size: 14px;
+  font-family: Manrope;
+  font-weight: 400;
+  word-wrap: break-word;
 }
 
 .recipesCardsHeader{
@@ -164,6 +318,7 @@ article{
   width: 100%;
   height: 28%;
   border-radius: 21px 21px 0 0;
+  object-fit: cover;
 }
 
 .recipeCardInfo{
@@ -180,12 +335,24 @@ li{
   list-style-type: none;
 }
 
-ul{
-  padding-left: 0;
+.componentsIngredient{
+  color: #1B1B1B;
+  font-size: 14px;
+  font-family: Manrope;
+  font-weight: 500;
+  word-wrap: break-word
 }
 
 .componentsQuantity{
-  color: grey;
+  color: #7A7A7A;
+  font-size: 14px;
+  font-family: Manrope;
+  font-weight: 400;
+  word-wrap: break-word
+}
+
+ul{
+  padding-left: 0;
 }
 
 .hide{
