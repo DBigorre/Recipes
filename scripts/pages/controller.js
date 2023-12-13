@@ -17,5 +17,6 @@ function displaySelectList(recipes){
   let allList = recoveryListOfAll(recipes);
   fillListOfFilters(allList.filteredArrayOfAllIngredients, allList.filteredArrayOfAllAppliances, allList.filteredArrayOfAllTools);
   listenerForFilters();
-  stockerEtCacherLesFiltresActifs(allList.filteredArrayOfAllIngredients, allList.filteredArrayOfAllAppliances, allList.filteredArrayOfAllTools)
+  stockerEtCacherLesFiltresActifs(allList.filteredArrayOfAllIngredients, allList.filteredArrayOfAllAppliances, allList.filteredArrayOfAllTools);
+  
 };

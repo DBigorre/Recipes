@@ -95,42 +95,13 @@ button{
   font-weight: 500;
   word-wrap: break-word;
   width: 100%;
-  border-radius: 11px 11px 0 0;
+  border-radius: 11px 11px 11px 11px;
   padding-left: 16px;
 }
 
-/*#ingredientsfilter{
-  color: #1B1B1B;
-  font-size: 16px;
-  font-family: Manrope;
-  font-weight: 500;
-  word-wrap: break-word;
-  width: 100%;
+.btnOpen{
   border-radius: 11px 11px 0 0;
-
 }
-
-#devicefilter{
-  color: #1B1B1B;
-  font-size: 16px;
-  font-family: Manrope;
-  font-weight: 500;
-  word-wrap: break-word;
-  width: 100%;
-  border-radius: 11px 11px 0 0;
-
-}
-
-#toolsfilter{
-  color: #1B1B1B;
-  font-size: 16px;
-  font-family: Manrope;
-  font-weight: 500;
-  word-wrap: break-word;
-  width: 100%;
-  border-radius: 11px 11px 0 0;
-
-}*/
 
 .searchInFilter{
   display: none;
@@ -139,30 +110,6 @@ button{
   background-color: white;
   padding: 10px;
 }
-
-/*#searchIngredients{
-  display: none;
-  height: 36px;
-  border-radius: 2px;
-  background-color: white;
-  padding: 10px;
-}
-
-#searchDevices{
-  display: none;
-  height: 36px;
-  border-radius: 2px;
-  background-color: white;
-  padding: 10px;
-}
-
-#searchTools{
-  display: none;
-  height: 36px;
-  border-radius: 2px;
-  background-color: white;
-  padding: 10px;
-}*/
 
 .inpuOfSearchInFilters{
   height: 36px;
@@ -173,21 +120,14 @@ button{
 }
 
 .loupeFilter{
-  margin-left: -40px;
   color: #7A7A7A;
 }
 
-/*.filterList{
-  background-color: white;
-  margin-top: 0;
-  height: 250px;
-  overflow: overlay;
-  color: #1B1B1B;
-  font-size: 14px;
-  font-family: Manrope;
-  font-weight: 400;
-  word-wrap: break-word;
-}*/
+.close{
+  color: #7A7A7A;
+  margin-left: -56px;
+  margin-right: 9px;
+}
 
 #ingredientsList{
   display: none;
@@ -254,6 +194,9 @@ button{
   font-weight: 400;
   word-wrap: break-word;
   background-color: #FFD15B;
+  border-radius: 10px;
+  width: 141px;
+  height: 53px;
 }
 
 .errorMessage h2{
@@ -263,6 +206,23 @@ button{
 
 .recipeCards{
   width: 90%;
+}
+
+.recipeTimeTag{
+  color: #1B1B1B;
+  font-size: 12px;
+  font-family: Manrope;
+  font-weight: 400;
+  word-wrap: break-word;
+  width: 63px;
+  height: 26px;
+  background-color: #FFD15B;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  margin-right: -362px;
 }
 
 .recipesCardsHeader h3{
@@ -356,5 +316,9 @@ ul{
 }
 
 .hide{
+  display: none;
+}
+
+#hidden{
   display: none;
 }

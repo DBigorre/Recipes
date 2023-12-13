@@ -30,6 +30,7 @@ function displayListRecipes(recipes){
       <div>
         <article class="recipes">
           <img src="assets/images/${recipe.image}" alt="Photo de la recette" class="recipePhoto">
+          <p class="recipeTimeTag"> ${recipe.time}min </p>
           <div class="recipeCardInfo">
             <h2> ${recipe.name}</h2>
             <h3> Recettes </h3>
@@ -120,7 +121,7 @@ function listenerForFilters(){
 }
 
 function displayIngredientsList(){
-
+  let ingredientBtn = document.getElementById("ingredientsfilter")
   let ingredientList = document.getElementById("ingredientsList")
   let ingredientSearch = document.getElementById("searchIngredients")
   ingredientList.style.display = "block"
@@ -128,14 +129,17 @@ function displayIngredientsList(){
   if (ingredientList.classList.contains("open")){
     ingredientList.style.display = "none"
     ingredientSearch.style.display = "none"
+    ingredientBtn.classList.remove("btnOpen")
     ingredientList.classList.remove("open")
   } else{
+    ingredientBtn.classList.add("btnOpen")
     ingredientList.classList.add("open")
   }
   listenOfIngredientsInput();
 }
 
 function displayDevicesList(){
+  let deviceBtn = document.getElementById("devicefilter")
   let deviceList = document.getElementById("deviceList")
   let deviceSearch = document.getElementById("searchDevices")
   deviceList.style.display = "block"
@@ -143,14 +147,17 @@ function displayDevicesList(){
   if (deviceList.classList.contains("open")){
     deviceList.style.display = "none"
     deviceSearch.style.display = "none"
+    deviceBtn.classList.remove("btnOpen")
     deviceList.classList.remove("open")
   } else {
+    deviceBtn.classList.add("btnOpen")
     deviceList.classList.add("open")
   }
   listenOfDeviceInput()
 }
 
 function displayToolsList() {
+  let toolBtn = document.getElementById("toolsfilter")
   let toolsList = document.getElementById("toolsList")
   let toolSearch = document.getElementById("searchTools")
   toolsList.style.display = "block"
@@ -158,8 +165,10 @@ function displayToolsList() {
   if (toolsList.classList.contains("open")){
     toolsList.style.display = "none"
     toolSearch.style.display = "none"
+    toolBtn.classList.remove("btnOpen")
     toolsList.classList.remove("open")
   } else {
+    toolBtn.classList.add("btnOpen")
     toolsList.classList.add("open")
   }
   listenOfToolInput()
@@ -169,12 +178,16 @@ function displayToolsList() {
 function listenOfIngredientsInput(){
   let input = document.getElementById("searchIngredients");
   let userWord = ""
+  let closeInIngredientInput = document.getElementById("closeIngredient")
 
   input.addEventListener("keyup", function (event){
       userWord = event.target.value
-      console.log(userWord)
       // fonction de tri qui renvoie uniquement les bons ingredients
       trierIngredientsInList(userWord)
+  })
+  closeInIngredientInput.addEventListener("click", function(event){
+    userWord=""
+    trierIngredientsInList(userWord)
   })
 }
 
@@ -449,6 +462,13 @@ function filterByUstensils(filteredRecipes, arrayOfUserToolSelection){
   return recipesFilteredWithTools
 }
 
+/*function resetInputSearch(){
+  let closeInIngredientInput = document.getElementById("closeIngredient")
+  closeInIngredientInput.addEventListener("click", function(event){
+    console.log("a")
+  })
+}*/
+
 // grosse fonction des filtres
 function grosseFonctionDesFiltresEcoute(){
 // déclarer les variables utiles
@@ -466,11 +486,13 @@ function grosseFonctionDesFiltresEcoute(){
 
 
 //a faire:
-// css ++
 
-//problemes
-// function fill list of filter
-
-//essai 1, iterer directement sur ce qui s'affiche
-//essai 2, verifier si correspondance entre affichage et liste et mettre hidden si false
-//essai 3, nouvelle fonction qui va chercher directement les infos dans le html
+// rajouter la croix pour remettre à zéro la recherche dans les filtres --fait-- et coder la fonction correspondant --l188--
+    //probleme remise à zero de l'input
+        //solution: relancer l'affichage de l'input? vider l'input? remplacer les donnees par une chaine vide?
+// changer chevron quand liste ouverte --<i class="fa-solid fa-chevron-up"> --en cours html l28--</i>
+    // probleme hide non pris en compte dans les class
+        //solution: faire une nouvelle class css display none? --ne marche pas--
+        //ajouter un id au lieu d'une class?
+        // comportements étrange sur id hidden et class hide ??????
+// echanger les fonction test pour y mettre la plus rapide
