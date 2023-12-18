@@ -124,14 +124,21 @@ function displayIngredientsList(){
   let ingredientBtn = document.getElementById("ingredientsfilter")
   let ingredientList = document.getElementById("ingredientsList")
   let ingredientSearch = document.getElementById("searchIngredients")
+  let chevronDown = document.getElementById("ingredientsChevronDown")
+  let chevronUp = document.getElementById("ingredientsChevronUp")
+
   ingredientList.style.display = "block"
   ingredientSearch.style.display = "block"
   if (ingredientList.classList.contains("open")){
+    chevronDown.style.display = "block"
+    chevronUp.style.display = "none"
     ingredientList.style.display = "none"
     ingredientSearch.style.display = "none"
     ingredientBtn.classList.remove("btnOpen")
     ingredientList.classList.remove("open")
   } else{
+    chevronDown.style.display = "none"
+    chevronUp.style.display = "block"
     ingredientBtn.classList.add("btnOpen")
     ingredientList.classList.add("open")
   }
@@ -142,14 +149,22 @@ function displayDevicesList(){
   let deviceBtn = document.getElementById("devicefilter")
   let deviceList = document.getElementById("deviceList")
   let deviceSearch = document.getElementById("searchDevices")
+  let chevronDown = document.getElementById("devicesChevronDown")
+  let chevronUp = document.getElementById("devicesChevronUp")
+
+
   deviceList.style.display = "block"
   deviceSearch.style.display = "block"
   if (deviceList.classList.contains("open")){
+    chevronDown.style.display = "block"
+    chevronUp.style.display = "none"
     deviceList.style.display = "none"
     deviceSearch.style.display = "none"
     deviceBtn.classList.remove("btnOpen")
     deviceList.classList.remove("open")
   } else {
+    chevronDown.style.display = "none"
+    chevronUp.style.display = "block"
     deviceBtn.classList.add("btnOpen")
     deviceList.classList.add("open")
   }
@@ -160,14 +175,21 @@ function displayToolsList() {
   let toolBtn = document.getElementById("toolsfilter")
   let toolsList = document.getElementById("toolsList")
   let toolSearch = document.getElementById("searchTools")
+  let chevronDown = document.getElementById("toolsChevronDown")
+  let chevronUp = document.getElementById("toolsChevronUp")
+
   toolsList.style.display = "block"
   toolSearch.style.display = "block"
   if (toolsList.classList.contains("open")){
+    chevronDown.style.display = "block"
+    chevronUp.style.display = "none"
     toolsList.style.display = "none"
     toolSearch.style.display = "none"
     toolBtn.classList.remove("btnOpen")
     toolsList.classList.remove("open")
   } else {
+    chevronDown.style.display = "none"
+    chevronUp.style.display = "block"
     toolBtn.classList.add("btnOpen")
     toolsList.classList.add("open")
   }
@@ -342,7 +364,8 @@ function maman() {
   fillListOfFilters(allList.filteredArrayOfAllIngredients, allList.filteredArrayOfAllAppliances, allList.filteredArrayOfAllTools);
 }
 
-function filterBySearchText(filteredRecipes, searchText) {
+//premiere fonction avec l'input de recherche pour le test (plus lente)
+function filterBySearchTextTest(filteredRecipes, searchText) {
   let searchResult = []
 
   for (recipe of filteredRecipes){
@@ -360,8 +383,8 @@ function filterBySearchText(filteredRecipes, searchText) {
   return searchResult
 }
 
-//deuxieme fonction avec l'input de recherche pour le test
-function filterBySearchTextTest(filteredRecipes, searchText) {
+//deuxieme fonction avec l'input de recherche pour le test (plus rapide)
+function filterBySearchText(filteredRecipes, searchText) {
   return filteredRecipes.filter(recipe => recipe.name.includes(searchText) || recipe.description.includes(searchText) ||
   recipe.ingredients.some(ingredient => ingredient.ingredient.includes(searchText))
   );
@@ -486,13 +509,9 @@ function grosseFonctionDesFiltresEcoute(){
 
 
 //a faire:
-
-// rajouter la croix pour remettre à zéro la recherche dans les filtres --fait-- et coder la fonction correspondant --l188--
+// rajouter la croix pour remettre à zéro la recherche dans les filtres --fait-- et coder la fonction correspondant --en cours js l188--
     //probleme remise à zero de l'input
-        //solution: relancer l'affichage de l'input? vider l'input? remplacer les donnees par une chaine vide?
-// changer chevron quand liste ouverte --<i class="fa-solid fa-chevron-up"> --en cours html l28--</i>
-    // probleme hide non pris en compte dans les class
-        //solution: faire une nouvelle class css display none? --ne marche pas--
-        //ajouter un id au lieu d'une class?
-        // comportements étrange sur id hidden et class hide ??????
-// echanger les fonction test pour y mettre la plus rapide
+        //solution: relancer l'affichage de l'input?
+        //vider l'input?
+        //remplacer les donnees par une chaine vide?
+// rajouter logo et image de fond depuis figma
