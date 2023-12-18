@@ -199,6 +199,7 @@ function displayToolsList() {
 //fonction recheche dans input list of ingredient
 function listenOfIngredientsInput(){
   let input = document.getElementById("searchIngredients");
+  let inputSearch = document.querySelector("#inputOfIngredient")
   let userWord = ""
   let closeInIngredientInput = document.getElementById("closeIngredient")
 
@@ -209,6 +210,8 @@ function listenOfIngredientsInput(){
   })
   closeInIngredientInput.addEventListener("click", function(event){
     userWord=""
+    inputSearch.value = ""
+
     trierIngredientsInList(userWord)
   })
 }
@@ -230,10 +233,18 @@ function trierIngredientsInList(userWord) {
 //fonction recherche dans input liste des devices
 function listenOfDeviceInput(){
   let input = document.getElementById("searchDevices");
+  let inputSearch = document.querySelector("#inputOfDevice")
   let userWord = ""
+  let closeInDeviceInput = document.getElementById("closeDevice")
 
   input.addEventListener("keyup", function (event){
     userWord = event.target.value
+
+    trierDevicesInList(userWord)
+  })
+  closeInDeviceInput.addEventListener("click", function(event){
+    userWord=""
+    inputSearch.value = ""
 
     trierDevicesInList(userWord)
   })
@@ -255,10 +266,18 @@ function trierDevicesInList(userWord) {
 //fonction recherche dans input liste des tools
 function listenOfToolInput(){
   let input = document.getElementById("searchTools");
+  let inputSearch = document.querySelector("#inputOfTool")
   let userWord = ""
+  let closeInToolInput = document.getElementById("closeTool")
 
   input.addEventListener("keyup", function (event){
     userWord = event.target.value
+    trierToolsInList(userWord)
+  })
+  closeInToolInput.addEventListener("click", function(event){
+    userWord=""
+    inputSearch.value = ""
+
     trierToolsInList(userWord)
   })
 }
@@ -485,13 +504,6 @@ function filterByUstensils(filteredRecipes, arrayOfUserToolSelection){
   return recipesFilteredWithTools
 }
 
-/*function resetInputSearch(){
-  let closeInIngredientInput = document.getElementById("closeIngredient")
-  closeInIngredientInput.addEventListener("click", function(event){
-    console.log("a")
-  })
-}*/
-
 // grosse fonction des filtres
 function grosseFonctionDesFiltresEcoute(){
 // déclarer les variables utiles
@@ -509,9 +521,5 @@ function grosseFonctionDesFiltresEcoute(){
 
 
 //a faire:
-// rajouter la croix pour remettre à zéro la recherche dans les filtres --fait-- et coder la fonction correspondant --en cours js l188--
-    //probleme remise à zero de l'input
-        //solution: relancer l'affichage de l'input?
-        //vider l'input?
-        //remplacer les donnees par une chaine vide?
+
 // rajouter logo et image de fond depuis figma
