@@ -3,9 +3,15 @@ main{
 }
 
 header{
-  background-color: #1f1f1f;
+  background-image: url("../assets/logo/lampos-aritonang-24gR_9lCdes-unsplash\ 1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
   height: 667px;
   width: 100%;
+}
+
+#logo{
+  margin: 8px;
 }
 
 section{
@@ -34,6 +40,7 @@ header h1{
   height: 48px;
   width: 100%;
   border-radius: 11px;
+  padding-left: 16px;
 }
 
 

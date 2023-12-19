@@ -521,5 +521,6 @@ function grosseFonctionDesFiltresEcoute(){
 
 
 //a faire:
+//padding input grosse recherche
 
-// rajouter logo et image de fond depuis figma
+//installer react developer tools
