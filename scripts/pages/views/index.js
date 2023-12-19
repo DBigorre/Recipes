@@ -479,7 +479,6 @@ function filterByAppliances(filteredRecipes, arrayOfUserApplianceSelection){
   });
 
   return recipesFilteredWithAppliance
-  // device en appliance renom
 };
 
   // 1 pour tool
@@ -518,9 +517,3 @@ function grosseFonctionDesFiltresEcoute(){
     }
   });
 }
-
-
-//a faire:
-//padding input grosse recherche
-
-//installer react developer tools
