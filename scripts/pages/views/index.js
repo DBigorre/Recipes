@@ -384,7 +384,7 @@ function maman() {
 }
 
 //premiere fonction avec l'input de recherche pour le test (plus lente)
-function filterBySearchTextTest(filteredRecipes, searchText) {
+/*function filterBySearchTextTest(filteredRecipes, searchText) {
   let searchResult = []
 
   for (recipe of filteredRecipes){
@@ -400,7 +400,7 @@ function filterBySearchTextTest(filteredRecipes, searchText) {
     }
   }
   return searchResult
-}
+}*/
 
 //deuxieme fonction avec l'input de recherche pour le test (plus rapide)
 function filterBySearchText(filteredRecipes, searchText) {
