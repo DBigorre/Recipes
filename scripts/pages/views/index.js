@@ -403,11 +403,11 @@ function filterBySearchTextTest(filteredRecipes, searchText) {
 }
 
 //deuxieme fonction avec l'input de recherche pour le test (plus rapide)
-function filterBySearchText(filteredRecipes, searchText) {
+/*function filterBySearchText(filteredRecipes, searchText) {
   return filteredRecipes.filter(recipe => recipe.name.includes(searchText) || recipe.description.includes(searchText) ||
   recipe.ingredients.some(ingredient => ingredient.ingredient.includes(searchText))
   );
-}
+}*/
 
 
 
