@@ -1,3 +1,5 @@
+import Model from "./model.js"
+
 async function init() {
   // Récupère les datas
   const model = new Model();
@@ -9,7 +11,6 @@ async function init() {
   displaySelectList(recipes);
   listenAndStockIngredients();
   grosseFonctionDesFiltresEcoute()
-
 };
 
 function displaySelectList(recipes){
@@ -18,5 +19,7 @@ function displaySelectList(recipes){
   fillListOfFilters(allList.filteredArrayOfAllIngredients, allList.filteredArrayOfAllAppliances, allList.filteredArrayOfAllTools);
   listenerForFilters();
   stockerEtCacherLesFiltresActifs(allList.filteredArrayOfAllIngredients, allList.filteredArrayOfAllAppliances, allList.filteredArrayOfAllTools);
-  
+
 };
+
+init();

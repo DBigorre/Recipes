@@ -1,4 +1,4 @@
-class Model{
+export default class Model{
   constructor(){
     this.data = null
   }
@@ -13,11 +13,10 @@ class Model{
       if (this.data && Array.isArray(this.data.recipes)) {
         return this.data;
       } else {
-        console.error("Les données ne sont pas au format attendu.");
+        console.error('Les données ne sont pas au format attendu.');
       }
     } catch (error) {
       console.error("Erreur:", error);
     }
   };
 };
-
