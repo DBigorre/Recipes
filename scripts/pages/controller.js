@@ -1,17 +1,17 @@
-import Model from "./model.js"
+import Model from "./model.js";
 
 async function init() {
   // Récupère les datas
   const model = new Model();
   const datas = await  model.getDatas();
-  const recipes = await datas.recipes
+  const recipes = await datas.recipes;
 
   initIndex(recipes);
   displayListRecipes(recipes);
   displaySelectList(recipes);
   listenAndStockIngredients();
-  grosseFonctionDesFiltresEcoute()
-};
+  grosseFonctionDesFiltresEcoute();
+}
 
 function displaySelectList(recipes){
 
@@ -20,6 +20,6 @@ function displaySelectList(recipes){
   listenerForFilters();
   stockerEtCacherLesFiltresActifs(allList.filteredArrayOfAllIngredients, allList.filteredArrayOfAllAppliances, allList.filteredArrayOfAllTools);
 
-};
+}
 
 init();

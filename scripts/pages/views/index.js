@@ -6,19 +6,19 @@ let searchText = "";
 let listRecipes = null;
 
 function initIndex(recipes){
-  listRecipes = recipes
+  listRecipes = recipes;
 }
 
 function displayListRecipes(recipes){
   let html= "";
-  let errorSection = document.querySelector(".errorMessage")
+  let errorSection = document.querySelector(".errorMessage");
 
   if (recipes.length == 0){
 
     html +=`
         <h2> Nous sommes désolés, aucune recette ne correspond aux filtres sélectionnés... </h2>
-    `
-    errorSection.innerHTML = html
+    `;
+    errorSection.innerHTML = html;
   } else {
     errorSection.innerHTML = "";
   }
@@ -42,11 +42,11 @@ function displayListRecipes(recipes){
           </div>
         </article>
       </div>
-    `
+    `;
   }
 
-  let htmlSection = document.querySelector(".recipesCardsHeader")
-  htmlSection.innerHTML = html
+  let htmlSection = document.querySelector(".recipesCardsHeader");
+  htmlSection.innerHTML = html;
 }
 
 function getHtmlIngredientsForCard(recette){
@@ -55,19 +55,19 @@ function getHtmlIngredientsForCard(recette){
 
   for (let components of listOfIngredients){
     if(components.unit == undefined){
-      components.unit = " "
-    };
+      components.unit = " ";
+    }
     if(components.quantity == undefined){
-      components.quantity = " "
-    };
+      components.quantity = " ";
+    }
       ingredientsHtml += `
         <ul>
           <li class="componentsIngredient"> ${components.ingredient} </li>
           <li class="componentsQuantity"> ${components.quantity} ${components.unit}</li>
         </ul>
-      `
+      `;
     }
-  return ingredientsHtml
+  return ingredientsHtml;
 }
 
 // filter
@@ -83,148 +83,148 @@ function fillListOfFilters(filteredArrayOfAllIngredients, filteredArrayOfAllAppl
   for (let i of filteredArrayOfAllIngredients){
     ingredientsListHtml += `
         <li class="ingredientDeLaListe"> ${i} </li>
-    `
+    `;
   }
-  listOfFilterIngredients.innerHTML = ingredientsListHtml
+  listOfFilterIngredients.innerHTML = ingredientsListHtml;
 
   for (let i of filteredArrayOfAllAppliances){
     deviceListHtml += `
         <li class="deviceDeLaListe"> ${i} </li>
-    `
-  };
-  listOfFilterDevice.innerHTML = deviceListHtml
+    `;
+  }
+  listOfFilterDevice.innerHTML = deviceListHtml;
 
   for (let i of filteredArrayOfAllTools){
     toolsListHtml += `
         <li class="toolDeLaListe"> ${i} </li>
-    `
-  };
-  listOfFilterTools.innerHTML = toolsListHtml
-  listenAndStockIngredients()
+    `;
+  }
+  listOfFilterTools.innerHTML = toolsListHtml;
+  listenAndStockIngredients();
 }
 
 function listenerForFilters(){
-  let ingredientsButton = document.getElementById("ingredientsfilter")
-  let deviceButton = document.getElementById("devicefilter")
-  let toolsButton = document.getElementById("toolsfilter")
+  let ingredientsButton = document.getElementById("ingredientsfilter");
+  let deviceButton = document.getElementById("devicefilter");
+  let toolsButton = document.getElementById("toolsfilter");
 
   ingredientsButton.addEventListener("click", function (event){
-    displayIngredientsList()
+    displayIngredientsList();
   });
   deviceButton.addEventListener("click", function (event){
-    displayDevicesList()
+    displayDevicesList();
   });
   toolsButton.addEventListener("click", function (event){
-    displayToolsList()
+    displayToolsList();
   });
 
 }
 
 function displayIngredientsList(){
-  let ingredientBtn = document.getElementById("ingredientsfilter")
-  let ingredientList = document.getElementById("ingredientsList")
-  let ingredientSearch = document.getElementById("searchIngredients")
-  let chevronDown = document.getElementById("ingredientsChevronDown")
-  let chevronUp = document.getElementById("ingredientsChevronUp")
+  let ingredientBtn = document.getElementById("ingredientsfilter");
+  let ingredientList = document.getElementById("ingredientsList");
+  let ingredientSearch = document.getElementById("searchIngredients");
+  let chevronDown = document.getElementById("ingredientsChevronDown");
+  let chevronUp = document.getElementById("ingredientsChevronUp");
 
-  ingredientList.style.display = "block"
-  ingredientSearch.style.display = "block"
+  ingredientList.style.display = "block";
+  ingredientSearch.style.display = "block";
   if (ingredientList.classList.contains("open")){
-    chevronDown.style.display = "block"
-    chevronUp.style.display = "none"
-    ingredientList.style.display = "none"
-    ingredientSearch.style.display = "none"
-    ingredientBtn.classList.remove("btnOpen")
-    ingredientList.classList.remove("open")
+    chevronDown.style.display = "block";
+    chevronUp.style.display = "none";
+    ingredientList.style.display = "none";
+    ingredientSearch.style.display = "none";
+    ingredientBtn.classList.remove("btnOpen");
+    ingredientList.classList.remove("open");
   } else{
-    chevronDown.style.display = "none"
-    chevronUp.style.display = "block"
-    ingredientBtn.classList.add("btnOpen")
-    ingredientList.classList.add("open")
+    chevronDown.style.display = "none";
+    chevronUp.style.display = "block";
+    ingredientBtn.classList.add("btnOpen");
+    ingredientList.classList.add("open");
   }
   listenOfIngredientsInput();
 }
 
 function displayDevicesList(){
-  let deviceBtn = document.getElementById("devicefilter")
-  let deviceList = document.getElementById("deviceList")
-  let deviceSearch = document.getElementById("searchDevices")
-  let chevronDown = document.getElementById("devicesChevronDown")
-  let chevronUp = document.getElementById("devicesChevronUp")
+  let deviceBtn = document.getElementById("devicefilter");
+  let deviceList = document.getElementById("deviceList");
+  let deviceSearch = document.getElementById("searchDevices");
+  let chevronDown = document.getElementById("devicesChevronDown");
+  let chevronUp = document.getElementById("devicesChevronUp");
 
 
-  deviceList.style.display = "block"
-  deviceSearch.style.display = "block"
+  deviceList.style.display = "block";
+  deviceSearch.style.display = "block";
   if (deviceList.classList.contains("open")){
-    chevronDown.style.display = "block"
-    chevronUp.style.display = "none"
-    deviceList.style.display = "none"
-    deviceSearch.style.display = "none"
-    deviceBtn.classList.remove("btnOpen")
-    deviceList.classList.remove("open")
+    chevronDown.style.display = "block";
+    chevronUp.style.display = "none";
+    deviceList.style.display = "none";
+    deviceSearch.style.display = "none";
+    deviceBtn.classList.remove("btnOpen");
+    deviceList.classList.remove("open");
   } else {
-    chevronDown.style.display = "none"
-    chevronUp.style.display = "block"
-    deviceBtn.classList.add("btnOpen")
-    deviceList.classList.add("open")
+    chevronDown.style.display = "none";
+    chevronUp.style.display = "block";
+    deviceBtn.classList.add("btnOpen");
+    deviceList.classList.add("open");
   }
-  listenOfDeviceInput()
+  listenOfDeviceInput();
 }
 
 function displayToolsList() {
-  let toolBtn = document.getElementById("toolsfilter")
-  let toolsList = document.getElementById("toolsList")
-  let toolSearch = document.getElementById("searchTools")
-  let chevronDown = document.getElementById("toolsChevronDown")
-  let chevronUp = document.getElementById("toolsChevronUp")
+  let toolBtn = document.getElementById("toolsfilter");
+  let toolsList = document.getElementById("toolsList");
+  let toolSearch = document.getElementById("searchTools");
+  let chevronDown = document.getElementById("toolsChevronDown");
+  let chevronUp = document.getElementById("toolsChevronUp");
 
-  toolsList.style.display = "block"
-  toolSearch.style.display = "block"
+  toolsList.style.display = "block";
+  toolSearch.style.display = "block";
   if (toolsList.classList.contains("open")){
-    chevronDown.style.display = "block"
-    chevronUp.style.display = "none"
-    toolsList.style.display = "none"
-    toolSearch.style.display = "none"
-    toolBtn.classList.remove("btnOpen")
-    toolsList.classList.remove("open")
+    chevronDown.style.display = "block";
+    chevronUp.style.display = "none";
+    toolsList.style.display = "none";
+    toolSearch.style.display = "none";
+    toolBtn.classList.remove("btnOpen");
+    toolsList.classList.remove("open");
   } else {
-    chevronDown.style.display = "none"
-    chevronUp.style.display = "block"
-    toolBtn.classList.add("btnOpen")
-    toolsList.classList.add("open")
+    chevronDown.style.display = "none";
+    chevronUp.style.display = "block";
+    toolBtn.classList.add("btnOpen");
+    toolsList.classList.add("open");
   }
-  listenOfToolInput()
+  listenOfToolInput();
 }
 
 //fonction recheche dans input list of ingredient
 function listenOfIngredientsInput(){
   let input = document.getElementById("searchIngredients");
-  let inputSearch = document.querySelector("#inputOfIngredient")
-  let userWord = ""
-  let closeInIngredientInput = document.getElementById("closeIngredient")
+  let inputSearch = document.querySelector("#inputOfIngredient");
+  let userWord = "";
+  let closeInIngredientInput = document.getElementById("closeIngredient");
 
   input.addEventListener("keyup", function (event){
-      userWord = event.target.value
+      userWord = event.target.value;
       // fonction de tri qui renvoie uniquement les bons ingredients
-      trierIngredientsInList(userWord)
-  })
+      trierIngredientsInList(userWord);
+  });
   closeInIngredientInput.addEventListener("click", function(event){
-    userWord=""
-    inputSearch.value = ""
+    userWord="";
+    inputSearch.value = "";
 
-    trierIngredientsInList(userWord)
-  })
+    trierIngredientsInList(userWord);
+  });
 }
 
 function trierIngredientsInList(userWord) {
   let ingredients = document.querySelectorAll(".ingredientDeLaListe");
 
   for (let ingredient of ingredients){
-    let nameOfIngredient = ingredient.textContent
+    let nameOfIngredient = ingredient.textContent;
     if(nameOfIngredient.includes(userWord)){
-      ingredient.classList.remove("hide")
+      ingredient.classList.remove("hide");
     } else{
-      ingredient.classList.add("hide")
+      ingredient.classList.add("hide");
     }
   }
 }
@@ -233,32 +233,32 @@ function trierIngredientsInList(userWord) {
 //fonction recherche dans input liste des devices
 function listenOfDeviceInput(){
   let input = document.getElementById("searchDevices");
-  let inputSearch = document.querySelector("#inputOfDevice")
-  let userWord = ""
-  let closeInDeviceInput = document.getElementById("closeDevice")
+  let inputSearch = document.querySelector("#inputOfDevice");
+  let userWord = "";
+  let closeInDeviceInput = document.getElementById("closeDevice");
 
   input.addEventListener("keyup", function (event){
-    userWord = event.target.value
+    userWord = event.target.value;
 
-    trierDevicesInList(userWord)
-  })
+    trierDevicesInList(userWord);
+  });
   closeInDeviceInput.addEventListener("click", function(event){
-    userWord=""
-    inputSearch.value = ""
+    userWord="";
+    inputSearch.value = "";
 
-    trierDevicesInList(userWord)
-  })
+    trierDevicesInList(userWord);
+  });
 }
 
 function trierDevicesInList(userWord) {
-  let devices = document.querySelectorAll(".deviceDeLaListe")
+  let devices = document.querySelectorAll(".deviceDeLaListe");
 
   for (let device of devices){
-    let nameOfDevice = device.textContent
+    let nameOfDevice = device.textContent;
     if(nameOfDevice.includes(userWord)){
-      device.classList.remove("hide")
+      device.classList.remove("hide");
     }else{
-      device.classList.add("hide")
+      device.classList.add("hide");
     }
   }
 }
@@ -266,31 +266,31 @@ function trierDevicesInList(userWord) {
 //fonction recherche dans input liste des tools
 function listenOfToolInput(){
   let input = document.getElementById("searchTools");
-  let inputSearch = document.querySelector("#inputOfTool")
-  let userWord = ""
-  let closeInToolInput = document.getElementById("closeTool")
+  let inputSearch = document.querySelector("#inputOfTool");
+  let userWord = "";
+  let closeInToolInput = document.getElementById("closeTool");
 
   input.addEventListener("keyup", function (event){
-    userWord = event.target.value
-    trierToolsInList(userWord)
-  })
+    userWord = event.target.value;
+    trierToolsInList(userWord);
+  });
   closeInToolInput.addEventListener("click", function(event){
-    userWord=""
-    inputSearch.value = ""
+    userWord="";
+    inputSearch.value = "";
 
-    trierToolsInList(userWord)
-  })
+    trierToolsInList(userWord);
+  });
 }
 
 function trierToolsInList(userWord) {
-  let tools = document.querySelectorAll(".toolDeLaListe")
+  let tools = document.querySelectorAll(".toolDeLaListe");
 
   for (let tool of tools){
-    let nameOfTool = tool.textContent
+    let nameOfTool = tool.textContent;
     if(nameOfTool.includes(userWord)){
-      tool.classList.remove("hide")
+      tool.classList.remove("hide");
     }else{
-      tool.classList.add("hide")
+      tool.classList.add("hide");
     }
   }
 }
@@ -303,103 +303,103 @@ function listenAndStockIngredients(){
 
   for(let ingredient of listOfIngredients){
     ingredient.addEventListener("click", function(event){
-      arrayOfUserIngredientSelection.push(ingredient.textContent)
-      displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserApplianceSelection, arrayOfUserToolSelection)
+      arrayOfUserIngredientSelection.push(ingredient.textContent);
+      displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserApplianceSelection, arrayOfUserToolSelection);
       maman();
-    })
+    });
   }
   for(let appliance of listOfAppliances){
     appliance.addEventListener("click", function(event){
-      arrayOfUserApplianceSelection.push(appliance.textContent)
-      displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserApplianceSelection, arrayOfUserToolSelection)
+      arrayOfUserApplianceSelection.push(appliance.textContent);
+      displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserApplianceSelection, arrayOfUserToolSelection);
       maman();
-    })
+    });
   }
   for(let tool of listOfTools){
     tool.addEventListener("click", function(event){
-      arrayOfUserToolSelection.push(tool.textContent)
-      displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserApplianceSelection, arrayOfUserToolSelection)
+      arrayOfUserToolSelection.push(tool.textContent);
+      displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserApplianceSelection, arrayOfUserToolSelection);
       maman();
-    })
+    });
   }
 }
 
 function stockerEtCacherLesFiltresActifs(filteredArrayOfAllIngredients, filteredArrayOfAllAppliances, filteredArrayOfAllTools){
-  let filtersForYellowDisplay = document.querySelector(".filtersActifs")
+  let filtersForYellowDisplay = document.querySelector(".filtersActifs");
   let yellowsFiltersHtml = "";
 
   for (let ingredient of filteredArrayOfAllIngredients){
     yellowsFiltersHtml += `
       <button class="yellowFilter hide"> ${ingredient} <i class="fa-solid fa-xmark"></i></button>
-    `
+    `;
   }
   for (let device of filteredArrayOfAllAppliances){
     yellowsFiltersHtml += `
       <button class="yellowFilter hide"> ${device} <i class="fa-solid fa-xmark"></i></button>
-    `
+    `;
   }
   for (let tool of filteredArrayOfAllTools){
     yellowsFiltersHtml += `
       <button class="yellowFilter hide"> ${tool} <i class="fa-solid fa-xmark"></i></button>
-    `
+    `;
   }
 
-  filtersForYellowDisplay.innerHTML = yellowsFiltersHtml
+  filtersForYellowDisplay.innerHTML = yellowsFiltersHtml;
 }
 
 function displayFiltersActifs(arrayOfUserIngredientSelection, arrayOfUserDeviceSelection, arrayOfUserToolSelection){
-  let filtersHide = document.querySelectorAll(".yellowFilter")
+  let filtersHide = document.querySelectorAll(".yellowFilter");
 
   for(let filter of filtersHide){
     for(let ingredient of arrayOfUserIngredientSelection){
       if(filter.textContent == ingredient){
-        filter.classList.remove("hide")
+        filter.classList.remove("hide");
       }
     }
     for(let device of arrayOfUserDeviceSelection){
       if(filter.textContent == device){
-        filter.classList.remove("hide")
+        filter.classList.remove("hide");
       }
     }
     for(let tool of arrayOfUserToolSelection){
       if(filter.textContent == tool){
-        filter.classList.remove("hide")
+        filter.classList.remove("hide");
       }
     }
   }
-  removeFiltersActifs()
+  removeFiltersActifs();
 }
 
 function maman() {
-  let filteredRecipes = [...listRecipes]
+  let filteredRecipes = [...listRecipes];
 
-  filteredRecipes = filterByIngredients(filteredRecipes, arrayOfUserIngredientSelection)
-  filteredRecipes = filterByAppliances(filteredRecipes, arrayOfUserApplianceSelection)
-  filteredRecipes = filterByUstensils(filteredRecipes, arrayOfUserToolSelection)
-  filteredRecipes = filterBySearchText(filteredRecipes, searchText)
+  filteredRecipes = filterByIngredients(filteredRecipes, arrayOfUserIngredientSelection);
+  filteredRecipes = filterByAppliances(filteredRecipes, arrayOfUserApplianceSelection);
+  filteredRecipes = filterByUstensils(filteredRecipes, arrayOfUserToolSelection);
+  filteredRecipes = filterBySearchText(filteredRecipes, searchText);
 
-  displayListRecipes(filteredRecipes)
+  displayListRecipes(filteredRecipes);
   let allList = recoveryListOfAll(filteredRecipes);
   fillListOfFilters(allList.filteredArrayOfAllIngredients, allList.filteredArrayOfAllAppliances, allList.filteredArrayOfAllTools);
 }
 
 //premiere fonction avec l'input de recherche pour le test (plus lente)
 function filterBySearchTextTest(filteredRecipes, searchText) {
-  let searchResult = []
+  let searchResult = [];
 
-  for (recipe of filteredRecipes){
+  for (let recipe of filteredRecipes){
     if (recipe.name.includes(searchText) || recipe.description.includes(searchText)){
-      searchResult.push(recipe)
+      searchResult.push(recipe);
     } else {
-      for( ingredient of recipe.ingredients){
+      for(let ingredient of recipe.ingredients){
         if ( ingredient.ingredient.includes(searchText)){
-          searchResult.push(recipe)
-          break
+          searchResult.push(recipe);
+          break;
         }
       }
     }
   }
-  return searchResult
+  return searchResult;
 }
 
 //deuxieme fonction avec l'input de recherche pour le test (plus rapide)
@@ -416,15 +416,15 @@ function removeFiltersActifs(){
   let filtersActif = document.querySelectorAll(".yellowFilter:not(.hide)");
 
   for(let filterActif of filtersActif){
-    let filterActifClose = filterActif.querySelector(".fa-xmark")
+    let filterActifClose = filterActif.querySelector(".fa-xmark");
     filterActifClose.addEventListener("click", function(event) {
-      filterActif.classList.add("hide")
+      filterActif.classList.add("hide");
 
       arrayOfUserIngredientSelection = arrayOfUserIngredientSelection.filter(item => item !== filterActif.textContent);
       arrayOfUserApplianceSelection = arrayOfUserApplianceSelection.filter(item => item !== filterActif.textContent);
       arrayOfUserToolSelection = arrayOfUserToolSelection.filter(item => item !== filterActif.textContent);
-      maman()
-    })
+      maman();
+    });
   }
 }
 
@@ -435,7 +435,7 @@ function filterByIngredients(filteredRecipes, arrayOfUserIngredientSelection){
   // recuperer le tableau depuis le controller
 
 
-  let recipesFilteredWithIngredient = []
+  let recipesFilteredWithIngredient = [];
 
   // iterer sur toutes les recettes
   filteredRecipes.forEach((recipe) => {
@@ -450,20 +450,20 @@ function filterByIngredients(filteredRecipes, arrayOfUserIngredientSelection){
       recipesFilteredWithIngredient.push(recipe);
     }
   });
-  return recipesFilteredWithIngredient
+  return recipesFilteredWithIngredient;
 }
 
   // 1 pour device
 function filterByAppliances(filteredRecipes, arrayOfUserApplianceSelection){
   // recuperer le tableau depuis la fonction precedente
   if (arrayOfUserApplianceSelection.length === 0 ){
-    return filteredRecipes
+    return filteredRecipes;
   }
 
   let arrayOfUserApplianceSelectionTrimmed = arrayOfUserApplianceSelection.map(appliance => appliance.trim());
 
 
-  let recipesFilteredWithAppliance = []
+  let recipesFilteredWithAppliance = [];
 
   // iterer sur toutes les recettes
   filteredRecipes.forEach((recipe) => {
@@ -478,12 +478,12 @@ function filterByAppliances(filteredRecipes, arrayOfUserApplianceSelection){
     }
   });
 
-  return recipesFilteredWithAppliance
-};
+  return recipesFilteredWithAppliance;
+}
 
   // 1 pour tool
 function filterByUstensils(filteredRecipes, arrayOfUserToolSelection){
-  let recipesFilteredWithTools = []
+  let recipesFilteredWithTools = [];
 
   // iterer sur toutes les recettes
   filteredRecipes.forEach((recipe) => {
@@ -500,7 +500,7 @@ function filterByUstensils(filteredRecipes, arrayOfUserToolSelection){
       recipesFilteredWithTools.push(recipe);
     }
   });
-  return recipesFilteredWithTools
+  return recipesFilteredWithTools;
 }
 
 // grosse fonction des filtres
@@ -511,9 +511,9 @@ function grosseFonctionDesFiltresEcoute(){
   // faire une écoute dans le input
   bigInput.addEventListener("keyup", function (event){
     // selectionner la rentrée User
-    searchText = event.target.value.trim()
+    searchText = event.target.value.trim();
     if (searchText.length >= 3){
-      maman()
+      maman();
     }
   });
 }

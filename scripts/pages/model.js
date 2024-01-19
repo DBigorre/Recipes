@@ -1,11 +1,11 @@
 export default class Model{
   constructor(){
-    this.data = null
+    this.data = null;
   }
   async getDatas() {
     if (this.data){
-      console.log(this.data)
-      return this.data
+      console.log(this.data);
+      return this.data;
     }
     try {
       const response = await fetch("../../data/recipes.json");
@@ -18,5 +18,5 @@ export default class Model{
     } catch (error) {
       console.error("Erreur:", error);
     }
-  };
-};
+  }
+}
